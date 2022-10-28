@@ -30,8 +30,8 @@ playlistsbottansheet(BuildContext context) {
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
                       colors: [
                         Color.fromARGB(255, 26, 12, 38),
                         Color.fromARGB(255, 0, 0, 0)

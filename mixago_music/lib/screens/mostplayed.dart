@@ -77,6 +77,14 @@ class _MostPlayState extends State<MostPlay> {
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: IconThemeData(color: Colors.grey),
+        title: Text(
+          'Most Played',
+          style: TextStyle(color: Colors.grey),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -99,21 +107,7 @@ class _MostPlayState extends State<MostPlay> {
               // SizedBox(
               //   height: 22,
               // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Most Played',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
+
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
@@ -174,7 +168,7 @@ class _MostPlayState extends State<MostPlay> {
                                   SizedBox(),
                                   GestureDetector(
                                     onTap: () {
-                                      bottansheet(context);
+                                      //   bottansheet(context);
                                     },
                                     child: Icon(
                                       Icons.more_vert_outlined,
@@ -277,7 +271,7 @@ class _MostPlayState extends State<MostPlay> {
                               ),
                               GestureDetector(
                                 onTap: () {
-                                  bottansheet(context);
+                                  // bottansheet(context);
                                 },
                                 child: Icon(
                                   Icons.more_vert_rounded,

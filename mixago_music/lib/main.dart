@@ -1,14 +1,21 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-import 'package:mixago_music/screens/homescreen.dart';
-import 'package:mixago_music/screens/mostplayed.dart';
-import 'package:mixago_music/screens/nowplaying.dart';
-import 'package:mixago_music/screens/playlist.dart';
-import 'package:mixago_music/screens/settings.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:mixago_music/screens/splash.dart';
 
-void main(List<String> args) {
-  runApp(Mixago());
+import 'modals/Musics.dart';
+
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(MusicsAdapter());
+  await Hive.openBox<Musics>("musics");
+  await Hive.openBox<List>("Library");
+  await Hive.openBox<List>('playlist');
+
+  runApp(const Mixago());
 }
 
 class Mixago extends StatefulWidget {
@@ -24,20 +31,19 @@ class _MixagoState extends State<Mixago> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          },
+        ),
         bottomSheetTheme: BottomSheetThemeData(
             backgroundColor: Colors.white.withOpacity(0.8)),
         primarySwatch: Colors.grey,
         textTheme: TextTheme(
-          //headline1: TextStyle(color: Colors.deepPurpleAccent),
-          //headline2: TextStyle(color: Colors.deepPurpleAccent),
-          bodyText2: TextStyle(
-              // fontFamily: ,
-
-              color: Colors.grey.shade300),
-          //subtitle1: TextStyle(color: Colors.pinkAccent),
+          bodyText2: TextStyle(color: Colors.grey.shade300),
         ),
       ),
-      home: Splash(),
+      home: const Splash(),
     );
   }
 }

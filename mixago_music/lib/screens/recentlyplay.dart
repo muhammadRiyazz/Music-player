@@ -16,6 +16,14 @@ class _RecentPlayState extends State<RecentPlay> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: IconThemeData(color: Colors.grey),
+        title: Text(
+          'Recent played',
+          style: TextStyle(color: Colors.grey),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -35,24 +43,6 @@ class _RecentPlayState extends State<RecentPlay> {
           child: Column(
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // SizedBox(
-              //   height: 22,
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Text(
-                    'Recent Played',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
               Container(
                 padding: EdgeInsets.all(10),
                 child: Row(
@@ -110,7 +100,7 @@ class _RecentPlayState extends State<RecentPlay> {
                                   SizedBox(),
                                   GestureDetector(
                                     onTap: () {
-                                      bottansheet(context);
+                                      //  bottansheet(context);
                                     },
                                     child: Icon(
                                       Icons.more_vert_outlined,
@@ -231,7 +221,7 @@ class _RecentPlayState extends State<RecentPlay> {
           ),
           GestureDetector(
             onTap: () {
-              bottansheet(context);
+              // bottansheet(context);
             },
             child: Icon(
               Icons.more_vert_outlined,

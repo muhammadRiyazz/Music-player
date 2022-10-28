@@ -10,21 +10,34 @@ import 'package:mixago_music/screens/widgets/homescreen/librery.dart';
 import 'package:mixago_music/screens/widgets/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import 'ScreenSearch.dart';
+import '../modals/Musics.dart';
+import 'nowplaying.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final List<Musics> myAudiolist;
+  const HomeScreen({
+    super.key,
+    required this.myAudiolist,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final myonAudioquery = OnAudioQuery();
-  //final AssetsAudioPlayer mymusicplayer = AssetsAudioPlayer();
-  //var myvisible = false;
+  final searchcontroller = TextEditingController();
+  AssetsAudioPlayer mymusicplayer = AssetsAudioPlayer.withId('0');
+  late List<Musics> searchmusic = List.from(widget.myAudiolist);
 
-  //List<Audio> MyAudio = [];
+  // final myonAudioquery = OnAudioQuery();
+  //final AssetsAudioPlayer mymusicplayer = AssetsAudioPlayer();
+  //List<Audio> mySongs = [];
+  var textfealdvisible = false;
+  var libraryvsible = true;
+  //bool isplaying=false;
+  // Audio find(List<Audio> source, String fromPath) {
+  //   return source.firstWhere((element) => element.path == fromPath);
+  // }
 
   @override
   void initState() {
@@ -35,6 +48,20 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     super.dispose();
   }
+
+  // void convertsong() {
+  //   for (var song in widget.myAudiolist) {
+  //     Audio myAudio = Audio.file(
+  //       song.url,
+  //       metas: Metas(
+  //         id: song.id,
+  //         title: song.title,
+  //         artist: song.artist,
+  //       ),
+  //     );
+  //     mySongs.add(myAudio);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,46 +100,48 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           IconButton(
+                            onPressed: () {
+                              //drawerfunction();
+                              return Scaffold.of(context).openDrawer();
+                            },
+                            icon: const Icon(
+                              Icons.menu,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Image.asset('asset/img/MIXAGO.png'),
+                          IconButton(
                               onPressed: () {
-                                //drawerfunction();
-                                return Scaffold.of(context).openDrawer();
+                                setState(
+                                  () {
+                                    if (textfealdvisible == false &&
+                                        libraryvsible == true) {
+                                      textfealdvisible = true;
+                                      libraryvsible = false;
+                                    } else {
+                                      textfealdvisible = false;
+                                      libraryvsible = true;
+                                    }
+                                  },
+                                );
                               },
                               icon: const Icon(
-                                Icons.menu,
+                                Icons.search,
                                 color: Colors.grey,
-                              )),
-                          Image.asset('asset/img/MIXAGO.png'),
-                          // const Text(
-                          //   'Home',
-                          //   style: TextStyle(fontSize: 20),
-                          // ),
-                          // IconButton(
-                          //   onPressed: () {
-                          //     Navigator.push(context,
-                          //         MaterialPageRoute(builder: (context) {
-                          //       return ScreenSearch(musiclist:);
-                          //     }));
-                          //     // setState(
-                          //     //   () {
-                          //     //     if (myvisible == true) {
-                          //     //       myvisible = false;
-                          //     //     } else {
-                          //     //       myvisible = true;
-                          //     //     }
-                          //     //   },
-                          //     // );
-                          //   },
-                          //   icon: Icon(
-                          //     Icons.search,
-                          //     color: Colors.grey.shade500,
-                          //   ),
-                          // )
+                              ))
                         ],
                       ),
                     ),
                     Visibility(
-                      // visible: myvisible,
-                      child: TextField(
+                      visible: textfealdvisible,
+                      child: TextFormField(
+                        validator: (value) {
+                          return;
+                        },
+                        controller: searchcontroller,
+                        onChanged: (value) {
+                          searchsong(value);
+                        },
                         style: TextStyle(color: Colors.grey.shade600),
                         decoration: InputDecoration(
                           //focusColor: Colors.blue,
@@ -130,72 +159,85 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: const Text(
-                          'Library',
-                          style: TextStyle(fontSize: 20),
-                        )),
-                    Container(
-                      height: 120,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
+                    Visibility(
+                      visible: libraryvsible,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          library(
-                              libraryimg: 'asset/img/imgd.jpg',
-                              libraryname: 'Favorite',
-                              myontap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Favorite()),
-                                );
-                              },
-                              context: context),
-                          const SizedBox(
-                            width: 10,
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: const Text(
+                              'Library',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
-                          library(
-                              libraryimg: 'asset/img/imgg.jpg',
-                              libraryname: 'Play List',
-                              myontap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const PlayList()),
-                                );
-                              },
-                              context: context),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          library(
-                              libraryimg: 'asset/img/imgw.jpg',
-                              libraryname: 'Most Played',
-                              myontap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MostPlay()),
-                                );
-                              },
-                              context: context),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          library(
-                              libraryimg: 'asset/img/imgk.jpg',
-                              libraryname: 'Recent Played',
-                              myontap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const RecentPlay()),
-                                );
-                              },
-                              context: context),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            height: 120,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                library(
+                                    libraryimg: 'asset/img/imgd.jpg',
+                                    libraryname: 'Favorite',
+                                    myontap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Favorite()),
+                                      );
+                                    },
+                                    context: context),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                library(
+                                    libraryimg: 'asset/img/imgg.jpg',
+                                    libraryname: 'Play List',
+                                    myontap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PlayList()),
+                                      );
+                                    },
+                                    context: context),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                library(
+                                    libraryimg: 'asset/img/imgw.jpg',
+                                    libraryname: 'Most Played',
+                                    myontap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MostPlay()),
+                                      );
+                                    },
+                                    context: context),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                library(
+                                    libraryimg: 'asset/img/imgk.jpg',
+                                    libraryname: 'Recent Played',
+                                    myontap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RecentPlay()),
+                                      );
+                                    },
+                                    context: context),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -213,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 3,
                           ),
                           Text(
-                            '3 Songs',
+                            '  ${searchmusic.length.toString()} Songs',
                             style: TextStyle(
                                 color: Colors.grey.shade700, fontSize: 12),
                           ),
@@ -221,95 +263,76 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Expanded(
-                      child: FutureBuilder<List<SongModel>>(
-                          future: myonAudioquery.querySongs(
-                              sortType: null,
-                              ignoreCase: true,
-                              uriType: UriType.EXTERNAL,
-                              orderType: OrderType.ASC_OR_SMALLER),
-                          builder: (context, item) {
-                            if (item.data == null) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-                            if (item.data!.isEmpty) {
-                              return const Center(
-                                child: Text('No Songs'),
-                              );
-                            }
-                            return ListView.builder(
-                                itemCount: item.data!.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      myminiplayer(
-                                          context: context,
-                                          musiclist: item.data!,
-                                          index: index);
-                                    },
-                                    child: ListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      leading: SizedBox(
-                                        height: 55,
-                                        width: 55,
-                                        child: QueryArtworkWidget(
-                                          artworkBorder:
-                                              BorderRadius.circular(13),
-                                          id: item.data![index].id,
-                                          type: ArtworkType.AUDIO,
-                                          nullArtworkWidget: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.asset(
-                                              'asset/img/music.jpg',
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
+                      child: (searchmusic.isEmpty)
+                          ? const Center(
+                              child: Text('No Songs'),
+                            )
+                          : ListView.builder(
+                              itemCount: searchmusic.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  onTap: () {
+                                    // swiper(
+                                    //     context: context,
+                                    //     myAudiolist: widget.myAudiolist,
+                                    //     index: index);
+                                    myminiplayer(
+                                        context: context,
+                                        myAudiolist: searchmusic,
+                                        index: index);
+                                  },
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: SizedBox(
+                                    height: 55,
+                                    width: 55,
+                                    child: QueryArtworkWidget(
+                                      artworkBorder: BorderRadius.circular(13),
+                                      id: int.parse(searchmusic[index].id),
+                                      type: ArtworkType.AUDIO,
+                                      nullArtworkWidget: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        child: Image.asset(
+                                          'asset/img/music.jpg',
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                      title: Text(
-                                        item.data![index].displayNameWOExt,
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        '${item.data![index].artist}',
-                                        style: TextStyle(
+                                    ),
+                                  ),
+                                  title: Text(
+                                    searchmusic[index].title,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    searchmusic[index].artist,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          bottansheet(
+                                              cxt: context,
+                                              myaudiolist: searchmusic,
+                                              index: index);
+                                        },
+                                        child: Icon(
+                                          Icons.more_vert_rounded,
                                           color: Colors.grey.shade700,
                                         ),
                                       ),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            iconSize: 27,
-                                            onPressed: () {},
-                                            icon: Icon(
-                                                Icons.play_circle_outlined),
-
-                                            //
-                                            color: Colors.grey.shade700,
-                                          ),
-                                          SizedBox(
-                                            width: 3,
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              bottansheet(context);
-                                            },
-                                            child: Icon(
-                                              Icons.more_vert_rounded,
-                                              color: Colors.grey.shade700,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                });
-                          }),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
                     ),
                   ],
                 ),
@@ -319,5 +342,14 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       }),
     );
+  }
+
+  void searchsong(String value) {
+    setState(() {
+      searchmusic = widget.myAudiolist
+          .where((element) =>
+              element.title.toLowerCase().contains(value.toLowerCase()))
+          .toList();
+    });
   }
 }
