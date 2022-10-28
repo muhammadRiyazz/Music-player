@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/screens/widgets/playlist/addsong.dart';
 import 'package:mixago_music/screens/widgets/playlist/playlistbottomsheet.dart';
 import 'package:mixago_music/screens/widgets/playlist/playlistsongbottomsheet.dart';
@@ -16,9 +20,29 @@ class PlayList extends StatefulWidget {
 }
 
 class _PlayListState extends State<PlayList> {
+  final createplaylistcontroller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    toplaylisthivebox();
+  }
+
+  toplaylisthivebox() async {
+    Box<List> playlistbox = getplaylistbox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        iconTheme: IconThemeData(color: Colors.grey),
+        title: Text(
+          'Playlist',
+          style: TextStyle(color: Colors.grey),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       // backgroundColor: Colors.black,
       body: SafeArea(
@@ -26,8 +50,8 @@ class _PlayListState extends State<PlayList> {
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
           child: Container(
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
                 colors: [
                   Color.fromARGB(255, 26, 12, 38),
                   Color.fromARGB(255, 0, 0, 0)
@@ -42,79 +66,41 @@ class _PlayListState extends State<PlayList> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                    child: Text('Play List', style: TextStyle(fontSize: 19))),
-                SizedBox(
-                  height: 6,
-                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: GestureDetector(
-                    onTap: () {
-                      ceateplaylistalert();
-                    },
-                    child: GlassContainer(
-                      blur: 4,
-                      color: Colors.grey.shade900.withOpacity(0.3),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text('CREATE PLAYLIST'),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        ceateplaylistalert();
+                      },
+                      child: GlassContainer(
+                        blur: 4,
+                        color: Colors.grey.shade900.withOpacity(0.3),
+                        child: const Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text('CREATE PLAYLIST'),
+                        ),
                       ),
                     ),
                   ),
                 ),
-
-                Container(
-                  child: Row(children: [
-                    myplaylist(
-                      libraryimg: 'asset/img/imgb.jpg',
-                      libraryname: 'Car Music',
-                      myontap: () {},
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.navigate_next_rounded,
-                          color: Colors.grey,
-                        ))
-                  ]),
-                ),
-
-                // Container(
-                //   decoration: BoxDecoration(
-                //     color: Colors.amber,
-                //     borderRadius: BorderRadius.circular(10),
-                //   ),
-                //   height: 200,
-                //   width: 260,
-                //   child: ClipRRect(
-                //     borderRadius: BorderRadius.circular(10),
-                //     child: Image.asset('asset/img/imgk.jpg', fit: BoxFit.fill),
-                //   ),
-                // ),
-
-                SizedBox(
-                  height: 15,
-                ),
+                playlistswiper(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Car Music',
-                              style:
-                                  TextStyle(color: Colors.grey, fontSize: 16),
-                            ),
-                            Text(
-                              '17 Songs',
-                              style: TextStyle(
-                                  color: Colors.grey.shade700, fontSize: 14),
-                            )
-                          ]),
-                    ),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Car Music',
+                            style: TextStyle(color: Colors.grey, fontSize: 16),
+                          ),
+                          Text(
+                            '17 Songs',
+                            style: TextStyle(
+                                color: Colors.grey.shade700, fontSize: 14),
+                          )
+                        ]),
                     IconButton(
                         onPressed: () {
                           addsongplaylist(context);
@@ -124,65 +110,6 @@ class _PlayListState extends State<PlayList> {
                           color: Colors.grey,
                         ))
                   ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      songlist(
-                          songimg: 'asset/img/imgd.jpg',
-                          songname: 'Asik Suratm',
-                          singer: 'Irmak Aricl',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imgg.jpg',
-                          songname: 'Shinunoga',
-                          singer: 'Fujii Kaze',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imga.jpg',
-                          songname: 'Wonderful Life',
-                          singer: 'Tavito Nanao',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imgc.jpg',
-                          songname: 'Trust',
-                          singer: 'Liza,Yo-Sea',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imge.jpg',
-                          songname: 'Todai',
-                          singer: 'Bialystocks',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imgd.jpg',
-                          songname: 'Asik Suratm',
-                          singer: 'Irmak Aricl',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imgg.jpg',
-                          songname: 'Shinunoga',
-                          singer: 'Fujii Kaze',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imga.jpg',
-                          songname: 'Wonderful Life',
-                          singer: 'Tavito Nanao',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imgc.jpg',
-                          songname: 'Trust',
-                          singer: 'Liza,Yo-Sea',
-                          context: context),
-                      songlist(
-                          songimg: 'asset/img/imge.jpg',
-                          songname: 'Todai',
-                          singer: 'Bialystocks',
-                          context: context),
-                    ],
-                  ),
                 ),
               ],
             ),
@@ -321,40 +248,155 @@ class _PlayListState extends State<PlayList> {
   }
 
   ceateplaylistalert() {
-    return showDialog<String>(
+    return showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Create Playlist'),
-            content: TextField(
-              style: TextStyle(color: Colors.grey.shade600),
-              decoration: InputDecoration(
-                //focusColor: Colors.blue,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(6.0),
+          return Dialog(
+              backgroundColor: Color.fromARGB(0, 255, 193, 7),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)), //this right here
+              child: Container(
+                height: 330,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: GlassContainer(
+                        borderRadius: BorderRadius.circular(25),
+                        blur: 2,
+                        color: Color.fromARGB(148, 11, 0, 0).withOpacity(0.6),
+                        child: Column(
+                          children: [
+                            const Center(
+                                child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 15),
+                              child: Text(
+                                'Create Your Playlist',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )),
+                            Container(
+                              height: 150,
+                              width: 150,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  'asset/img/music.jpg',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              child: TextField(
+                                controller: createplaylistcontroller,
+                                style: TextStyle(color: Colors.grey.shade400),
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  hintStyle:
+                                      TextStyle(color: Colors.grey.shade700),
+                                  hintText: "Enter Playlist Name",
+                                  labelStyle:
+                                      TextStyle(color: Color(0xFF424242)),
+                                  border: UnderlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.red)),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: const GlassContainer(
+                                child: Center(
+                                    child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: Text('Cancel'),
+                                )),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                createplaylist();
+                                Navigator.pop(context);
+                              },
+                              child: const GlassContainer(
+                                child: Center(
+                                    child: Padding(
+                                  padding: EdgeInsets.symmetric(vertical: 10),
+                                  child: Text('Create'),
+                                )),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
-                fillColor: Colors.white.withOpacity(0.5),
-                filled: true,
-                // prefixIcon: Icon(color: Colors.grey.shade700, Icons.search),
-                hintText: "Your Playlist Name",
-                hintStyle: TextStyle(
-                  color: Colors.grey.shade700,
-                ),
+              ));
+        });
+  }
+
+  createplaylist() async {
+    final myplaylistname = createplaylistcontroller.text;
+    Box<List> playlistbox = getplaylistbox();
+
+    log(myplaylistname.toString());
+    await playlistbox.put(myplaylistname, []);
+    log(playlistbox.length.toString());
+  }
+
+  playlistswiper() {
+    final SwiperController myswipercontroller = SwiperController();
+    Box<List> playlistbox = getplaylistbox();
+    log(playlistbox.length.toString());
+    return Container(
+      height: 150,
+      child: Swiper(
+        controller: myswipercontroller,
+        itemBuilder: (context, index) {
+          return Stack(
+            children: [
+              Container(
+                height: 150,
+                decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.circular(10)),
               ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Cancel')),
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text('Ok')),
+              Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Container(
+                    child: Text(''),
+                    color: Colors.black.withOpacity(0.8),
+                    height: 45,
+                  ))
             ],
           );
-        });
+        },
+        itemCount: playlistbox.length,
+        scrollDirection: Axis.horizontal,
+        onIndexChanged: (index) {},
+        viewportFraction: 0.75,
+        scale: 0.7,
+      ),
+    );
   }
 }
