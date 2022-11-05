@@ -120,7 +120,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                 builder: (context) => NowPlaying(
                                   mymusicplayer: mymusicplayer,
                                   mylist: mySongs,
-                                  index: index,
+                                  index: widget.index,
+                                  allsonglist: widget.myAudiolist,
                                 ),
                               ),
                             );
@@ -166,19 +167,16 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                       trailing: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          widget.index != 0
-                                              ? IconButton(
-                                                  onPressed: () {
-                                                    mymusicplayer.previous();
-                                                  },
-                                                  icon: Icon(
-                                                    size: 32,
-                                                    Icons
-                                                        .skip_previous_outlined,
-                                                    color: Colors.grey.shade600,
-                                                  ),
-                                                )
-                                              : SizedBox(),
+                                          IconButton(
+                                            onPressed: () {
+                                              mymusicplayer.previous();
+                                            },
+                                            icon: Icon(
+                                              size: 32,
+                                              Icons.skip_previous_outlined,
+                                              color: Colors.grey.shade600,
+                                            ),
+                                          ),
                                           GestureDetector(
                                             onTap: () {
                                               mymusicplayer.playOrPause();
@@ -195,14 +193,13 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                           IconButton(
                                             onPressed: () {
                                               mymusicplayer.next();
-                                              log(widget.index.toString());
                                             },
                                             icon: Icon(
                                               size: 32,
                                               Icons.skip_next_outlined,
                                               color: Colors.grey.shade600,
                                             ),
-                                          ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -236,11 +233,13 @@ class _MiniPlayerState extends State<MiniPlayer> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => NowPlaying(
-                                        mymusicplayer: mymusicplayer,
-                                        mylist: mySongs,
-                                        index: index,
-                                      )),
+                                builder: (context) => NowPlaying(
+                                  mymusicplayer: mymusicplayer,
+                                  mylist: mySongs,
+                                  index: index,
+                                  allsonglist: widget.myAudiolist,
+                                ),
+                              ),
                             );
                           },
                           child: GlassContainer(

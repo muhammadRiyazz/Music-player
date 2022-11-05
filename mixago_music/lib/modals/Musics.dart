@@ -14,9 +14,14 @@ class Musics extends HiveObject {
   @HiveField(3)
   final String url;
 
-  Musics(
-      {required this.id,
-      required this.artist,
-      required this.title,
-      required this.url});
+  @HiveField(4)
+  int? count;
+
+  Musics({
+    required this.id,
+    required this.artist,
+    required this.title,
+    required this.url,
+    this.count = 0,
+  });
 }

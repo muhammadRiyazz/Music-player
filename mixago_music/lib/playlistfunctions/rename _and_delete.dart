@@ -1,11 +1,12 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/modals/Musics.dart';
 
-import 'package:mixago_music/modals/database_function.dart';
+import '../modals/Musics.dart';
+import '../modals/database_function.dart';
 
 playlistsbottansheet({required BuildContext context, required String key}) {
   TextEditingController renameplaylistcontroll =
@@ -83,7 +84,7 @@ playlistsbottansheet({required BuildContext context, required String key}) {
                       isEditing
                           ? renametextfeald(
                               key: key, rename: renameplaylistcontroll)
-                          : playlistname(),
+                          : playlistname(keyname: key),
                       Padding(
                         padding: const EdgeInsets.all(17),
                         child: Column(
@@ -139,9 +140,9 @@ playlistsbottansheet({required BuildContext context, required String key}) {
       });
 }
 
-Widget playlistname() {
+Widget playlistname({required String keyname}) {
   return Text(
-    'Play List Name',
+    keyname,
     style: TextStyle(
         fontWeight: FontWeight.bold, color: Colors.grey.shade500, fontSize: 16),
   );

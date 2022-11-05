@@ -1,5 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/modals/profilemodal.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 Box<Musics> getsongsmodalbox() {
@@ -12,4 +13,8 @@ Box<List> getlibrarybox() {
 
 Box<List> getplaylistbox() {
   return Hive.box<List>('playlist');
+}
+
+Box<UserProfile> getprofilebox() {
+  return Hive.box<UserProfile>('profile');
 }

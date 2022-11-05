@@ -2,8 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mixago_music/modals/profilemodal.dart';
+import 'package:mixago_music/screens/playlistpage.dart';
 
 import 'package:mixago_music/screens/splash.dart';
+import 'package:mixago_music/screens/splashtwo.dart';
 
 import 'modals/Musics.dart';
 
@@ -11,9 +14,11 @@ void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(MusicsAdapter());
+  Hive.registerAdapter(UserProfileAdapter());
   await Hive.openBox<Musics>("musics");
   await Hive.openBox<List>("Library");
   await Hive.openBox<List>('playlist');
+  await Hive.openBox<UserProfile>('profile');
 
   runApp(const Mixago());
 }
@@ -37,7 +42,8 @@ class _MixagoState extends State<Mixago> {
           },
         ),
         bottomSheetTheme: BottomSheetThemeData(
-            backgroundColor: Colors.white.withOpacity(0.8)),
+          backgroundColor: Colors.white.withOpacity(0.1),
+        ),
         primarySwatch: Colors.grey,
         textTheme: TextTheme(
           bodyText2: TextStyle(color: Colors.grey.shade300),

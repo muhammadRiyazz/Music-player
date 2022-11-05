@@ -8,6 +8,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:mixago_music/screens/homescreen.dart';
+import 'package:mixago_music/screens/splashtwo.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -34,6 +35,8 @@ class _SplashState extends State<Splash> {
 
     // changehivemodaltollist();
     putfavouritelist();
+    putrecentlist();
+    putmostplayedlist();
     tohomescreen();
   }
 
@@ -73,6 +76,20 @@ class _SplashState extends State<Splash> {
     }
   }
 
+  Future putrecentlist() async {
+    if (!librarybox.keys.contains('recent Played')) {
+      await librarybox.put('recent Played', []);
+      log('create recent list mt');
+    }
+  }
+
+  Future putmostplayedlist() async {
+    if (!librarybox.keys.contains('most Played')) {
+      await librarybox.put('most Played', []);
+      log('create most list mt');
+    }
+  }
+
   tohomescreen() async {
     List<Musics> mysongslist = musicsBox.values.toList();
     log('to list');
@@ -80,8 +97,7 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => HomeScreen(myAudiolist: mysongslist),
-      ),
+          builder: (context) => splashtwo(myAudiolist: mysongslist)),
     );
     log(mysongslist.length.toString());
   }

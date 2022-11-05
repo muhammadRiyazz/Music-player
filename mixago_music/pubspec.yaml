@@ -45,6 +45,10 @@ dependencies:
   hive_flutter: ^1.1.0
   top_snackbar_flutter: ^2.1.1
   animations: ^2.0.7
+  hovering: ^1.0.4
+  flutter_staggered_animations: ^1.1.1
+  slider_button: ^2.0.0
+  image_picker: ^0.8.6
   
   
   

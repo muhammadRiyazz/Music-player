@@ -5,21 +5,25 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/rendering/box.dart';
+import 'package:mixago_music/modals/Musics.dart';
+
+import 'package:mixago_music/screens/playlistpage.dart';
 import 'package:mixago_music/screens/widgets/bottomsheet.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
 
 class NowPlaying extends StatefulWidget {
-  const NowPlaying({
-    super.key,
-    required this.mymusicplayer,
-    required this.mylist,
-    required this.index,
-  });
+  const NowPlaying(
+      {super.key,
+      required this.mymusicplayer,
+      required this.mylist,
+      required this.index,
+      required this.allsonglist});
   final AssetsAudioPlayer mymusicplayer;
   final List<Audio> mylist;
   final int index;
+  final List<Musics> allsonglist;
   //final int index;
 
   @override
@@ -244,10 +248,10 @@ class _NowPlayingState extends State<NowPlaying> {
                   ),
                 ),
                 child: Column(
-                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: mysize.height * 0.04,
+                      height: mysize.height * 0.03,
                     ),
                     swiper(
                       mSize: mysize,
@@ -255,7 +259,7 @@ class _NowPlayingState extends State<NowPlaying> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 15, bottom: 10, left: 55, right: 55),
+                          top: 7, bottom: 0, left: 55, right: 55),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -269,25 +273,33 @@ class _NowPlayingState extends State<NowPlaying> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const [
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     ScaffoldMessenger.of(context).showSnackBar(
-                              //         const SnackBar(
-                              //             duration: Duration(seconds: 7),
-                              //             backgroundColor: Colors.amber,
-                              //             content: Text('haeyyyy guyssss')));
-                              //     //   bottansheet(context);
-                              //   },
-                              //   child: Icon(
-                              //     Icons.menu,
-                              //     color: Colors.grey.shade600,
-                              //   ),
-                              // ),
-                              SizedBox(
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              const SizedBox(
                                 height: 12,
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    tofavoritehivebox(
+                                        context: context,
+                                        id: mycurrentaudio.metas.id.toString());
+                                  },
+                                  child: const Icon(Icons.favorite,
+                                      color: Colors.grey)),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return plalistpage(
+                                        id: mycurrentaudio.metas.id.toString());
+                                  }));
+                                },
+                                child: const Icon(Icons.playlist_add,
+                                    size: 28, color: Colors.grey),
                               )
-                              //Icon(Icons.playlist_add, color: Colors.grey),
                             ],
                           ),
                         ],

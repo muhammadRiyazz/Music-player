@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,9 +17,16 @@ class _SettingsState extends State<Settings> {
     Size mysize = MediaQuery.of(context).size;
 
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.grey),
+        backgroundColor: Colors.black,
+        title: Text(
+          'Settings',
+          style: TextStyle(color: Colors.grey),
+        ),
+      ),
       //backgroundColor: Colors.black,
-      body: SafeArea(
-          child: Container(
+      body: Container(
         decoration: BoxDecoration(
           gradient: const LinearGradient(
             colors: [
@@ -35,14 +44,6 @@ class _SettingsState extends State<Settings> {
         //color: Colors.black,
         child: Column(
           children: [
-            const Center(
-                child: Text(
-              'Settings',
-              style: TextStyle(fontSize: 20),
-            )),
-            SizedBox(
-              height: mysize.height * 0.02,
-            ),
             myListTile(
               text: 'Notification',
               firstmyicon: Icon(Icons.notifications_active_outlined),
@@ -67,7 +68,7 @@ class _SettingsState extends State<Settings> {
                 lastmyicon: SizedBox()),
           ],
         ),
-      )),
+      ),
     );
   }
 
