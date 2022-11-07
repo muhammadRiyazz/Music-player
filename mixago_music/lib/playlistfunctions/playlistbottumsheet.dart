@@ -1,12 +1,12 @@
 import 'dart:developer';
 
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/library%20add%20functions/addfavourite.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
-import 'package:mixago_music/screens/widgets/bottomsheet.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -92,7 +92,7 @@ bottansheetinplaylistlisttile(
                     title: const Text(
                       'Remove From Playlist',
                     ),
-                    leading: Icon(Icons.playlist_remove),
+                    leading: const Icon(Icons.playlist_remove),
                   ),
                   ValueListenableBuilder(
                     valueListenable: librarybox.listenable(),
@@ -122,7 +122,7 @@ bottansheetinplaylistlisttile(
                 color: Colors.black54.withOpacity(0.5),
                 height: size.height * 0.05,
                 width: double.infinity,
-                child: Center(child: Text('Cancel')),
+                child: const Center(child: Text('Cancel')),
               ),
             ),
             SizedBox(height: size.height * 0.01),
@@ -153,6 +153,7 @@ songremove(
   await playlistbox.put(key, Playlistsongs);
 
   log(Playlistsongs.length.toString());
+  // ignore: use_build_context_synchronously
   showTopSnackBar(
       context,
       const CustomSnackBar.error(

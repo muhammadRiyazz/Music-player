@@ -1,14 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:hive_flutter/adapters.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'package:mixago_music/modals/profilemodal.dart';
 
-import '../modals/Musics.dart';
 import '../modals/database_function.dart';
 
 class profileeditpage extends StatefulWidget {
@@ -29,7 +27,7 @@ class _profileeditpageState extends State<profileeditpage> {
   void initState() {
     namecontroller.text = widget.myname;
     myimage = widget.myimg;
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -76,13 +74,6 @@ class _profileeditpageState extends State<profileeditpage> {
               TextButton(
                 onPressed: () async {
                   myimagepicker();
-                  // // String? pickedImage =
-                  // //     await myImageSource(context: context);
-                  // setState(() async {
-
-                  // });
-
-                  // Navigator.pop(context);
                 },
                 child: const Text(
                   'Change Photo',
@@ -91,11 +82,11 @@ class _profileeditpageState extends State<profileeditpage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 26),
                 child: TextField(
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
                   controller: namecontroller,
                   decoration: InputDecoration(
                     hintText: 'Enter Your Name',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                     enabledBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(width: 2, color: Colors.grey.shade700),
@@ -136,7 +127,7 @@ class _profileeditpageState extends State<profileeditpage> {
             children: [
               GlassContainer(
                 blur: 4,
-                color: Color.fromARGB(255, 11, 11, 8).withOpacity(0.2),
+                color: const Color.fromARGB(255, 11, 11, 8).withOpacity(0.2),
                 child: Column(children: [
                   GestureDetector(
                     onTap: (() {
@@ -146,8 +137,8 @@ class _profileeditpageState extends State<profileeditpage> {
                     child: ListTile(
                       iconColor: Colors.grey.shade500,
                       textColor: Colors.grey.shade500,
-                      leading: Icon(Icons.camera_alt_outlined),
-                      title: Text('Camara'),
+                      leading: const Icon(Icons.camera_alt_outlined),
+                      title: const Text('Camara'),
                     ),
                   ),
                   GestureDetector(
@@ -158,8 +149,8 @@ class _profileeditpageState extends State<profileeditpage> {
                     child: ListTile(
                       iconColor: Colors.grey.shade500,
                       textColor: Colors.grey.shade500,
-                      leading: Icon(Icons.photo),
-                      title: Text('Galarry'),
+                      leading: const Icon(Icons.photo),
+                      title: const Text('Galarry'),
                     ),
                   )
                 ]),

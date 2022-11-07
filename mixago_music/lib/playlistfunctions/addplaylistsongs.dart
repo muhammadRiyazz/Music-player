@@ -5,7 +5,7 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
-import 'package:mixago_music/screens/widgets/bottomsheet.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -17,7 +17,7 @@ addsongplaylist({required BuildContext ctxt, required String keys}) {
   var myvisible = false;
 
   return showModalBottomSheet(
-      backgroundColor: Color.fromARGB(0, 185, 32, 32),
+      backgroundColor: const Color.fromARGB(0, 185, 32, 32),
       context: ctxt,
       isScrollControlled: true,
       builder: (BuildContext context) {
@@ -37,103 +37,100 @@ addsongplaylist({required BuildContext ctxt, required String keys}) {
                 blur: 5,
                 borderRadius: BorderRadius.circular(10),
                 height: size.height * 0.60,
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(bottom: 5, top: 15, left: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'All SONGS',
-                              style: TextStyle(
-                                  color: Colors.grey,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            Text(
-                              '${mysongslist.length.toString()} Songs',
-                              style: TextStyle(
-                                  color: Colors.grey.shade700, fontSize: 12),
-                            ),
-                          ],
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(bottom: 5, top: 15, left: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'All SONGS',
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                          Text(
+                            '${mysongslist.length.toString()} Songs',
+                            style: TextStyle(
+                                color: Colors.grey.shade700, fontSize: 12),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: 7,
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15),
-                          child: (mysongslist.isEmpty)
-                              ? const Center(
-                                  child: Text('No Songs'),
-                                )
-                              : ListView.builder(
-                                  itemCount: mysongslist.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                        onTap: () {
-                                          myminiplayer(
-                                              context: context,
-                                              myAudiolist: mysongslist,
-                                              index: index);
-                                        },
-                                        contentPadding: EdgeInsets.zero,
-                                        leading: SizedBox(
-                                          height: 55,
-                                          width: 55,
-                                          child: QueryArtworkWidget(
-                                            artworkBorder:
-                                                BorderRadius.circular(13),
-                                            id: int.parse(
-                                                mysongslist[index].id),
-                                            type: ArtworkType.AUDIO,
-                                            nullArtworkWidget: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                              child: Image.asset(
-                                                'asset/img/music.jpg',
-                                                fit: BoxFit.cover,
-                                              ),
+                    ),
+                    const SizedBox(
+                      height: 7,
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: (mysongslist.isEmpty)
+                            ? const Center(
+                                child: Text('No Songs'),
+                              )
+                            : ListView.builder(
+                                itemCount: mysongslist.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                      onTap: () {
+                                        myminiplayer(
+                                            context: context,
+                                            myAudiolist: mysongslist,
+                                            index: index);
+                                      },
+                                      contentPadding: EdgeInsets.zero,
+                                      leading: SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: QueryArtworkWidget(
+                                          artworkBorder:
+                                              BorderRadius.circular(13),
+                                          id: int.parse(mysongslist[index].id),
+                                          type: ArtworkType.AUDIO,
+                                          nullArtworkWidget: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: Image.asset(
+                                              'asset/img/music.jpg',
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
                                         ),
-                                        title: Text(
-                                          mysongslist[index].title,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
+                                      ),
+                                      title: Text(
+                                        mysongslist[index].title,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        mysongslist[index].artist,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.grey.shade700,
+                                        ),
+                                      ),
+                                      trailing: IconButton(
+                                          onPressed: () {
+                                            songaddtoplaylist(
+                                              keys: keys,
+                                              id: mysongslist[index].id,
+                                              context: ctxt,
+                                            );
+                                          },
+                                          icon: const Icon(
+                                            Icons.add_box_outlined,
                                             color: Colors.grey,
-                                          ),
-                                        ),
-                                        subtitle: Text(
-                                          mysongslist[index].artist,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                            color: Colors.grey.shade700,
-                                          ),
-                                        ),
-                                        trailing: IconButton(
-                                            onPressed: () {
-                                              songaddtoplaylist(
-                                                keys: keys,
-                                                id: mysongslist[index].id,
-                                                context: ctxt,
-                                              );
-                                            },
-                                            icon: const Icon(
-                                              Icons.add_box_outlined,
-                                              color: Colors.grey,
-                                            )));
-                                  },
-                                ),
-                        ),
+                                          )));
+                                },
+                              ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
@@ -149,7 +146,7 @@ addsongplaylist({required BuildContext ctxt, required String keys}) {
                   color: Colors.black54.withOpacity(0.5),
                   height: size.height * 0.05,
                   width: double.infinity,
-                  child: Center(child: Text('Cancel')),
+                  child: const Center(child: Text('Cancel')),
                 ),
               ),
               SizedBox(

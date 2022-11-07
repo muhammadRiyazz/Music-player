@@ -80,6 +80,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
       Playlist(audios: mySongs, startIndex: widget.index),
       loopMode: LoopMode.playlist,
       autoStart: true,
+      showNotification: true,
     );
   }
 

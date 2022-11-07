@@ -6,7 +6,6 @@ import 'package:mixago_music/modals/profilemodal.dart';
 import 'package:mixago_music/screens/playlistpage.dart';
 
 import 'package:mixago_music/screens/splash.dart';
-import 'package:mixago_music/screens/splashtwo.dart';
 
 import 'modals/Musics.dart';
 

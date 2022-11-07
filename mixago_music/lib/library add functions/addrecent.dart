@@ -12,7 +12,7 @@ addrecent({required String id}) async {
   List<Musics> allsonglist = allsongs.values.toList();
   Box<List> alllibrary = getlibrarybox();
   List<Musics> recentsonglist =
-      await alllibrary.get('recent Played')!.toList().cast<Musics>();
+      alllibrary.get('recent Played')!.toList().cast<Musics>();
 
   log(recentsonglist.length.toString());
   final selectedsong = allsonglist.firstWhere((song) => song.id.contains(id));

@@ -8,18 +8,15 @@ import 'package:mixago_music/modals/profilemodal.dart';
 import 'package:mixago_music/screens/profilescreen.dart';
 
 import 'package:mixago_music/screens/settings.dart';
+import 'package:share_plus/share_plus.dart';
 
 Widget drawerfunction(BuildContext context) {
+  Size size = MediaQuery.of(context).size;
   Box<UserProfile> userdata = getprofilebox();
-  // final userprofile = userdata.get('user');
-  // final name = userprofile?.username;
-  // final image = userprofile?.userimage;
+
   return Drawer(
     backgroundColor: Color.fromARGB(0, 0, 0, 0),
     child: Container(
-      // borderRadius: BorderRadius.only(
-      //     bottomRight: Radius.circular(150), topRight: Radius.circular(1)),
-      // blur: 5,
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(150), topRight: Radius.circular(1)),
@@ -58,7 +55,7 @@ Widget drawerfunction(BuildContext context) {
                     ),
                   ),
                   padding: const EdgeInsets.only(left: 10, top: 15),
-                  height: 150,
+                  height: size.height * 0.194,
                   child: ValueListenableBuilder(
                     valueListenable: userdata.listenable(),
                     builder: (BuildContext context, Box<UserProfile> value,
@@ -79,8 +76,8 @@ Widget drawerfunction(BuildContext context) {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),
-                            height: 70,
-                            width: 70,
+                            height: size.height * 0.100,
+                            width: size.width * 0.210,
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ClipRRect(
@@ -95,23 +92,23 @@ Widget drawerfunction(BuildContext context) {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(
-                              top: 16,
+                            padding: EdgeInsets.symmetric(
+                              vertical: size.height * 0.01,
                             ),
                             child: name == null
                                 ? Text(
                                     'Hey User...',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: size.width * 0.05,
                                         fontWeight: FontWeight.bold),
                                   )
                                 : Text(
                                     'Hey ${name.toString()}...',
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: size.width * 0.05,
                                         fontWeight: FontWeight.bold),
                                   ),
-                          )
+                          ),
                         ],
                       );
                     },
@@ -166,6 +163,9 @@ Widget drawerfunction(BuildContext context) {
                 ),
               ),
               ListTile(
+                  onTap: () async {
+                    // await Share.share( );
+                  },
                   leading: Icon(Icons.ios_share_rounded,
                       color: Colors.white.withOpacity(0.7)),
                   title: Text(

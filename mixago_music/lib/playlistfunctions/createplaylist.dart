@@ -8,6 +8,7 @@ import 'package:mixago_music/modals/database_function.dart';
 ceateplaylistalert(
     {required BuildContext context,
     required TextEditingController createplaylistcontroller}) {
+  final size = MediaQuery.of(context).size;
   return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -16,7 +17,7 @@ ceateplaylistalert(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)), //this right here
             child: SizedBox(
-              height: 330,
+              height: size.height * 0.5,
               child: Column(
                 children: [
                   Expanded(
@@ -37,8 +38,8 @@ ceateplaylistalert(
                             ),
                           )),
                           SizedBox(
-                            height: 150,
-                            width: 150,
+                            height: size.height * 0.2,
+                            width: size.width * 0.5,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: Image.asset(
@@ -48,7 +49,8 @@ ceateplaylistalert(
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: size.width * 0.2),
                             child: TextField(
                               controller: createplaylistcontroller,
                               style: TextStyle(color: Colors.grey.shade400),
@@ -57,8 +59,9 @@ ceateplaylistalert(
                                 hintStyle:
                                     TextStyle(color: Colors.grey.shade700),
                                 hintText: "Enter Playlist Name",
-                                labelStyle: TextStyle(color: Color(0xFF424242)),
-                                border: UnderlineInputBorder(
+                                labelStyle:
+                                    const TextStyle(color: Color(0xFF424242)),
+                                border: const UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.red)),
                               ),
                             ),
@@ -85,6 +88,9 @@ ceateplaylistalert(
                               )),
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          width: 5,
                         ),
                         Expanded(
                           child: GestureDetector(

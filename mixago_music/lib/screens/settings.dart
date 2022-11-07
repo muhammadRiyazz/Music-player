@@ -1,8 +1,7 @@
-import 'dart:ui';
-
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:mixago_music/screens/splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -12,23 +11,34 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  AssetsAudioPlayer myaudioplayer = AssetsAudioPlayer.withId('0');
+
+  Future getnotification({required bool swichvalue}) async {
+    setState(() {
+      notificationvalue = swichvalue;
+      notificationvalue!
+          ? myaudioplayer.showNotification = true
+          : myaudioplayer.showNotification = false;
+    });
+    final mySharedPreferences = await SharedPreferences.getInstance();
+    await mySharedPreferences.setBool('notification', notificationvalue!);
+  }
+
   @override
   Widget build(BuildContext context) {
-    Size mysize = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
+        iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: Colors.black,
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(color: Colors.grey),
         ),
       ),
       //backgroundColor: Colors.black,
       body: Container(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
             colors: [
               Color.fromARGB(255, 26, 12, 38),
               Color.fromARGB(255, 0, 0, 0)
@@ -40,32 +50,34 @@ class _SettingsState extends State<Settings> {
           ),
         ),
 
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         //color: Colors.black,
         child: Column(
           children: [
             myListTile(
               text: 'Notification',
-              firstmyicon: Icon(Icons.notifications_active_outlined),
+              firstmyicon: const Icon(Icons.notifications_active_outlined),
               lastmyicon: Switch(
-                activeTrackColor: Colors.grey,
+                activeTrackColor: const Color.fromARGB(255, 158, 158, 158),
                 inactiveTrackColor: Colors.grey,
-                value: true,
-                onChanged: (value) {},
+                value: notificationvalue!,
+                onChanged: (value) async {
+                  await getnotification(swichvalue: value);
+                },
               ),
             ),
             myListTile(
                 text: 'Privecy & Policy',
-                firstmyicon: Icon(Icons.privacy_tip_outlined),
-                lastmyicon: Icon(Icons.navigate_next_outlined)),
+                firstmyicon: const Icon(Icons.privacy_tip_outlined),
+                lastmyicon: const Icon(Icons.navigate_next_outlined)),
             myListTile(
                 text: 'Temrs & Coundition',
-                firstmyicon: Icon(Icons.mark_unread_chat_alt_rounded),
-                lastmyicon: Icon(Icons.navigate_next_outlined)),
+                firstmyicon: const Icon(Icons.mark_unread_chat_alt_rounded),
+                lastmyicon: const Icon(Icons.navigate_next_outlined)),
             myListTile(
                 text: 'Resset App',
-                firstmyicon: Icon(Icons.restore_outlined),
-                lastmyicon: SizedBox()),
+                firstmyicon: const Icon(Icons.restore_outlined),
+                lastmyicon: const SizedBox()),
           ],
         ),
       ),
@@ -79,7 +91,7 @@ class _SettingsState extends State<Settings> {
       leading: firstmyicon,
       title: Text(
         text,
-        style: TextStyle(color: Colors.grey),
+        style: const TextStyle(color: Colors.grey),
       ),
     );
   }

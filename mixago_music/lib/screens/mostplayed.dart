@@ -28,8 +28,8 @@ class _MostPlayState extends State<MostPlay> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        iconTheme: IconThemeData(color: Colors.grey),
-        title: Text(
+        iconTheme: const IconThemeData(color: Colors.grey),
+        title: const Text(
           'Most Played',
           style: TextStyle(color: Colors.grey),
         ),
@@ -57,187 +57,84 @@ class _MostPlayState extends State<MostPlay> {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(
-                //   height: 22,
-                // ),
-
-                // Container(
-                //   padding: EdgeInsets.all(10),
-                //   decoration: BoxDecoration(
-                //       //color: Colors.white12.withOpacity(0.1),
-                //       borderRadius: BorderRadius.circular(7)),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.start,
-                //     children: [
-                //       Container(
-                //         padding: EdgeInsets.only(right: 15),
-                //         height: size.width * 0.45,
-                //         width: size.width * 0.45,
-                //         child: ClipRRect(
-                //             borderRadius: BorderRadius.circular(10),
-                //             child: Image.asset(
-                //               'asset/img/imge.jpg',
-                //               fit: BoxFit.cover,
-                //             )),
-                //       ),
-                //       Container(
-                //         //  color: Colors.blue,
-                //         child: Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             // SizedBox(
-                //             //   height: 5,
-                //             // ),
-                //             Text(
-                //               'Song Name',
-                //               style: TextStyle(
-                //                   fontWeight: FontWeight.bold, fontSize: 19),
-                //             ),
-                //             SizedBox(
-                //               height: 5,
-                //             ),
-                //             Text(
-                //               'Singer Name',
-                //               style: TextStyle(
-                //                   fontSize: 13, color: Colors.grey.shade500),
-                //             )
-                //           ],
-                //         ),
-                //       ),
-                //       Expanded(
-                //         child: Container(
-                //           height: 160,
-                //           //color: Colors.yellow,
-                //           child: Column(
-                //             //crossAxisAlignment: CrossAxisAlignment.stretch,
-                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //             crossAxisAlignment: CrossAxisAlignment.end,
-                //             children: [
-                //               Container(
-                //                 child: Row(
-                //                   mainAxisAlignment:
-                //                       MainAxisAlignment.spaceBetween,
-                //                   children: [
-                //                     SizedBox(),
-                //                     GestureDetector(
-                //                       onTap: () {
-                //                         //   bottansheet(context);
-                //                       },
-                //                       child: Icon(
-                //                         Icons.more_vert_outlined,
-                //                         size: 30,
-                //                         color: Colors.grey.shade500,
-                //                       ),
-                //                     ),
-                //                   ],
-                //                 ),
-                //               ),
-                //               Container(
-                //                 child: Row(
-                //                   mainAxisAlignment:
-                //                       MainAxisAlignment.spaceBetween,
-                //                   children: [
-                //                     // SizedBox(),
-                //                     Icon(
-                //                       Icons.play_circle_outline_outlined,
-                //                       color: Colors.grey.shade500,
-                //                       size: 40,
-                //                     ),
-                //                   ],
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
-                const SizedBox(
-                  height: 12,
-                ),
-                const Text(
-                  'MOST PLAYED',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                SizedBox(
-                  height: 3,
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    'MOST PLAYED',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
                 Text(
                   '${mostlayedsonglist.length.toString()} SONGS',
                   style: TextStyle(color: Colors.grey.shade700),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: mostlayedsonglist.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: () {
-                          // swiper(
-                          //     context: context,
-                          //     myAudiolist: widget.myAudiolist,
-                          //     index: index);
-                          myminiplayer(
-                              context: context,
-                              myAudiolist: mostlayedsonglist,
-                              index: index);
-                          addrecent(id: mostlayedsonglist[index].id);
-                        },
-                        contentPadding: EdgeInsets.zero,
-                        leading: SizedBox(
-                          height: 55,
-                          width: 55,
-                          child: QueryArtworkWidget(
-                            artworkBorder: BorderRadius.circular(13),
-                            id: int.parse(mostlayedsonglist[index].id),
-                            type: ArtworkType.AUDIO,
-                            nullArtworkWidget: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset(
-                                'asset/img/music.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          mostlayedsonglist[index].title,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        subtitle: Text(
-                          mostlayedsonglist[index].artist,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GestureDetector(
+                  child: mostlayedsonglist.isEmpty
+                      ? const Center(
+                          child: Text('No Songs'),
+                        )
+                      : ListView.builder(
+                          itemCount: mostlayedsonglist.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
                               onTap: () {
-                                bottansheet(
-                                    cxt: context,
-                                    myaudiolist: mostlayedsonglist,
+                                myminiplayer(
+                                    context: context,
+                                    myAudiolist: mostlayedsonglist,
                                     index: index);
+                                addrecent(id: mostlayedsonglist[index].id);
                               },
-                              child: Icon(
-                                Icons.more_vert_rounded,
-                                color: Colors.grey.shade700,
+                              contentPadding: EdgeInsets.zero,
+                              leading: SizedBox(
+                                height: 55,
+                                width: 55,
+                                child: QueryArtworkWidget(
+                                  artworkBorder: BorderRadius.circular(13),
+                                  id: int.parse(mostlayedsonglist[index].id),
+                                  type: ArtworkType.AUDIO,
+                                  nullArtworkWidget: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(
+                                      'asset/img/music.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
+                              title: Text(
+                                mostlayedsonglist[index].title,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              subtitle: Text(
+                                mostlayedsonglist[index].artist,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      bottansheet(
+                                          cxt: context,
+                                          myaudiolist: mostlayedsonglist,
+                                          index: index);
+                                    },
+                                    child: Icon(
+                                      Icons.more_vert_rounded,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             );

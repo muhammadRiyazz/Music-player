@@ -6,7 +6,7 @@ import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/playlistfunctions/addplaylistsongs.dart';
-import 'package:mixago_music/playlistfunctions/addsonin%20bottusheet.dart';
+import 'package:mixago_music/playlistfunctions/addsong%20in%20bottunsheet.dart';
 import 'package:mixago_music/playlistfunctions/playlistbottumsheet.dart';
 import 'package:mixago_music/screens/widgets/bottomsheet.dart';
 import 'package:mixago_music/screens/widgets/miniplayer.dart';
@@ -54,9 +54,9 @@ class _plalistpageState extends State<plalistpage> {
     List playlistkeys = playlisthivebox.keys.toList();
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
+        iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: Colors.black,
-        title: Text(
+        title: const Text(
           'Playlist',
           style: TextStyle(color: Colors.grey),
         ),
@@ -124,110 +124,118 @@ class _plalistpageState extends State<plalistpage> {
                 ),
 
                 // Text('Plalist'),
-                Container(
+                SizedBox(
                   height: size.height * 0.16,
                   //  color: Colors.blue,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    separatorBuilder: (context, index) {
-                      return SizedBox(
-                        width: size.width * 0.025,
-                      );
-                    },
-                    itemCount: playlistkeys.length,
-                    itemBuilder: (context, index) {
-                      final List<Musics> Playlistsongs = value
-                          .get(playlistkeys[index])!
-                          .toList()
-                          .cast<Musics>();
-                      return GestureDetector(
-                        onTap: () {
-                          if (widget.id != null) {
-                            addtoplaylist(
-                                context: context,
-                                id: widget.id.toString(),
-                                key: playlistkeys[index]);
+                  child: playlistkeys.isEmpty
+                      ? const Center(
+                          child: Text('No Playlist'),
+                        )
+                      : ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          separatorBuilder: (context, index) {
+                            return SizedBox(
+                              width: size.width * 0.025,
+                            );
+                          },
+                          itemCount: playlistkeys.length,
+                          itemBuilder: (context, index) {
+                            final List<Musics> Playlistsongs = value
+                                .get(playlistkeys[index])!
+                                .toList()
+                                .cast<Musics>();
+                            return GestureDetector(
+                              onTap: () {
+                                if (widget.id != null) {
+                                  addtoplaylist(
+                                      context: context,
+                                      id: widget.id.toString(),
+                                      key: playlistkeys[index]);
 
-                            Navigator.pop(context);
-                          }
+                                  Navigator.pop(context);
+                                }
 
-                          mycontroller.jumpToPage(index);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color.fromARGB(255, 26, 12, 38),
-                                  Color.fromARGB(69, 59, 56, 56)
-                                ],
-                                begin: Alignment.bottomLeft,
-                                end: Alignment.topRight,
-                                stops: [0.2, 0.8],
-                                tileMode: TileMode.repeated,
-                              ),
-                              //  color: Colors.amber,
-                              borderRadius: BorderRadius.circular(8)),
-                          width: size.width * 0.50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, top: 10, bottom: 3),
-                                      child: SizedBox(
-                                        width: 105,
-                                        child: Text(
-                                          playlistkeys[index]
-                                              .toString()
-                                              .toUpperCase(),
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: size.width * 0.04,
-                                              color: Colors.grey.shade500),
-                                        ),
-                                      ),
+                                mycontroller.jumpToPage(index);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        Color.fromARGB(255, 26, 12, 38),
+                                        Color.fromARGB(69, 59, 56, 56)
+                                      ],
+                                      begin: Alignment.bottomLeft,
+                                      end: Alignment.topRight,
+                                      stops: [0.2, 0.8],
+                                      tileMode: TileMode.repeated,
                                     ),
+                                    //  color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(8)),
+                                width: size.width * 0.50,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8, top: 10, bottom: 3),
+                                            child: SizedBox(
+                                              width: 105,
+                                              child: Text(
+                                                playlistkeys[index]
+                                                    .toString()
+                                                    .toUpperCase(),
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: size.width * 0.04,
+                                                    color:
+                                                        Colors.grey.shade500),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 8),
+                                            child: Text(
+                                              '${Playlistsongs.length} Songs',
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey.shade700),
+                                            ),
+                                          )
+                                        ]),
                                     Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: Text(
-                                        '${Playlistsongs.length} Songs',
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade700),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 13, vertical: 7),
+                                      child: Column(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              playlistsbottansheet(
+                                                  context: context,
+                                                  key: playlistkeys[index]);
+                                            },
+                                            child: const Icon(
+                                              Icons.menu,
+                                              size: 27,
+                                              color: Color.fromARGB(
+                                                  159, 167, 154, 154),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     )
-                                  ]),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 13, vertical: 7),
-                                child: Column(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        playlistsbottansheet(
-                                            context: context,
-                                            key: playlistkeys[index]);
-                                      },
-                                      child: Icon(
-                                        Icons.menu,
-                                        size: 27,
-                                        color:
-                                            Color.fromARGB(159, 167, 154, 154),
-                                      ),
-                                    ),
                                   ],
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
 
                 PageViewsongs()
@@ -239,6 +247,7 @@ class _plalistpageState extends State<plalistpage> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   PageViewsongs() {
     Size size = MediaQuery.of(context).size;
     List playlistkeys = playlisthivebox.keys.toList();

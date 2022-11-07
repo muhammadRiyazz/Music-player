@@ -22,7 +22,7 @@ lyricsbottumsheet({required BuildContext context, required String larics}) {
               blur: 4,
               height: size.height * 0.80,
               child: Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Center(
                     child: SingleChildScrollView(
                   child: Text(
@@ -39,11 +39,11 @@ lyricsbottumsheet({required BuildContext context, required String larics}) {
                   Navigator.pop(context);
                 },
                 child: GlassContainer(
-                  child: Center(child: Text('Cancel')),
                   color: Colors.black.withOpacity(0.5),
                   blur: 4,
                   height: 40,
                   width: double.infinity,
+                  child: const Center(child: Text('Cancel')),
                 ),
               ),
             )

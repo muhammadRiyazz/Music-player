@@ -12,7 +12,7 @@ Future addmostplayed({required String id}) async {
   List<Musics> allsonglist = allsongs.values.toList();
 
   List<Musics> mostlayedsonglist =
-      await alllibrary.get('most Played')!.toList().cast<Musics>();
+      alllibrary.get('most Played')!.toList().cast<Musics>();
 
   log(mostlayedsonglist.length.toString());
   final selectedsong = allsonglist.firstWhere((song) => song.id.contains(id));

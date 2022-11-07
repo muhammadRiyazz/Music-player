@@ -1,11 +1,9 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/library%20add%20functions/addrecent.dart';
 import 'package:mixago_music/screens/favorite.dart';
 import 'package:mixago_music/screens/mostplayed.dart';
-
 import 'package:mixago_music/screens/playlistpage.dart';
 import 'package:mixago_music/screens/recentlyplay.dart';
 import 'package:mixago_music/screens/widgets/bottomsheet.dart';
@@ -13,7 +11,7 @@ import 'package:mixago_music/screens/widgets/homescreen/drewer.dart';
 import 'package:mixago_music/screens/widgets/homescreen/librery.dart';
 import 'package:mixago_music/screens/widgets/miniplayer.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import '../modals/Musics.dart';
 import '../modals/database_function.dart';
 
@@ -81,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.grey,
                 )),
           ],
-          iconTheme: IconThemeData(color: Colors.grey),
+          iconTheme: const IconThemeData(color: Colors.grey),
           backgroundColor: Colors.black),
       resizeToAvoidBottomInset: false,
       drawer: drawerfunction(context),
@@ -111,41 +109,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Container(
                     padding: const EdgeInsets.only(bottom: 10),
-                    // child: Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   children: [
-                    //     IconButton(
-                    //       onPressed: () {
-                    //         //drawerfunction();
-                    //         return Scaffold.of(context).openDrawer();
-                    //       },
-                    //       icon: const Icon(
-                    //         Icons.menu,
-                    //         color: Colors.grey,
-                    //       ),
-                    //     ),
-                    //     Image.asset('asset/img/MIXAGO.png'),
-                    //     IconButton(
-                    //         onPressed: () {
-                    //           setState(
-                    //             () {
-                    //               if (textfealdvisible == false &&
-                    //                   libraryvsible == true) {
-                    //                 textfealdvisible = true;
-                    //                 libraryvsible = false;
-                    //               } else {
-                    //                 textfealdvisible = false;
-                    //                 libraryvsible = true;
-                    //               }
-                    //             },
-                    //           );
-                    //         },
-                    //         icon: const Icon(
-                    //           Icons.search,
-                    //           color: Colors.grey,
-                    //         ))
-                    //   ],
-                    // ),
                   ),
                   Visibility(
                     visible: textfealdvisible,
@@ -180,11 +143,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Text(
                             'LIBRARY',
                             style: TextStyle(
-                                color: (Colors.grey.shade500),
+                                color: (Colors.grey.shade400),
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -204,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Navigator.push(context,
                                             MaterialPageRoute(
                                           builder: (context) {
-                                            return Favorite();
+                                            return const Favorite();
                                           },
                                         ));
                                       },
@@ -217,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Navigator.push(context,
                                             MaterialPageRoute(
                                           builder: (context) {
-                                            return MostPlay();
+                                            return const MostPlay();
                                           },
                                         ));
                                       },
@@ -248,7 +211,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) {
-                                return plalistpage();
+                                return const plalistpage();
                               }));
                             },
                             child: Center(
@@ -288,8 +251,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'All Songs',
-                          style: TextStyle(fontSize: 17),
+                          'All SONGS',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         const SizedBox(
                           height: 3,
@@ -297,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           '${searchmusic.length.toString()} Songs',
                           style: TextStyle(
-                              color: Colors.grey.shade700, fontSize: 12),
+                              color: Colors.grey.shade700, fontSize: 13),
                         ),
                       ],
                     ),
@@ -310,72 +274,61 @@ class _HomeScreenState extends State<HomeScreen> {
                         : ListView.builder(
                             itemCount: searchmusic.length,
                             itemBuilder: (context, index) {
-                              return AnimationConfiguration.staggeredList(
-                                position: index,
-                                duration: const Duration(milliseconds: 200),
-                                child: SlideAnimation(
-                                  verticalOffset: 50.0,
-                                  child: FadeInAnimation(
-                                    child: ListTile(
-                                      onTap: () {
-                                        myminiplayer(
-                                            context: context,
-                                            myAudiolist: searchmusic,
-                                            index: index);
-                                        addrecent(id: searchmusic[index].id);
-                                      },
-                                      contentPadding: EdgeInsets.zero,
-                                      leading: SizedBox(
-                                        height: 55,
-                                        width: 55,
-                                        child: QueryArtworkWidget(
-                                          artworkBorder:
-                                              BorderRadius.circular(13),
-                                          id: int.parse(searchmusic[index].id),
-                                          type: ArtworkType.AUDIO,
-                                          nullArtworkWidget: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            child: Image.asset(
-                                              'asset/img/music.jpg',
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        searchmusic[index].title,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                          color: Colors.grey,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        searchmusic[index].artist,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          color: Colors.grey.shade700,
-                                        ),
-                                      ),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              bottansheet(
-                                                  cxt: context,
-                                                  myaudiolist: searchmusic,
-                                                  index: index);
-                                            },
-                                            child: Icon(
-                                              Icons.more_vert_rounded,
-                                              color: Colors.grey.shade700,
-                                            ),
-                                          ),
-                                        ],
+                              return ListTile(
+                                onTap: () {
+                                  myminiplayer(
+                                      context: context,
+                                      myAudiolist: searchmusic,
+                                      index: index);
+                                  addrecent(id: searchmusic[index].id);
+                                },
+                                contentPadding: EdgeInsets.zero,
+                                leading: SizedBox(
+                                  height: 55,
+                                  width: 55,
+                                  child: QueryArtworkWidget(
+                                    artworkBorder: BorderRadius.circular(13),
+                                    id: int.parse(searchmusic[index].id),
+                                    type: ArtworkType.AUDIO,
+                                    nullArtworkWidget: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                      child: Image.asset(
+                                        'asset/img/music.jpg',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
+                                ),
+                                title: Text(
+                                  searchmusic[index].title,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  searchmusic[index].artist,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color: Colors.grey.shade700,
+                                  ),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        bottansheet(
+                                            cxt: context,
+                                            myaudiolist: searchmusic,
+                                            index: index);
+                                      },
+                                      child: Icon(
+                                        Icons.more_vert_rounded,
+                                        color: Colors.grey.shade700,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               );
                             },

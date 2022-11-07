@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
-// ignore: implementation_imports
-import 'package:flutter/src/rendering/box.dart';
+
+import 'package:mixago_music/library%20add%20functions/addfavourite.dart';
 import 'package:mixago_music/lyrics/lyricsbottumsheet.dart';
 import 'package:mixago_music/lyrics/lyricsget.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:mixago_music/screens/playlistpage.dart';
-import 'package:mixago_music/screens/widgets/bottomsheet.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -26,16 +26,14 @@ class NowPlaying extends StatefulWidget {
   final List<Audio> mylist;
   final int index;
   final List<Musics> allsonglist;
-  //final int index;
 
   @override
   State<NowPlaying> createState() => _NowPlayingState();
 }
 
 class _NowPlayingState extends State<NowPlaying> {
-  //final AssetsAudioPlayer mymusicplayer = AssetsAudioPlayer.withId('0');
   final SwiperController myswipercontroller = SwiperController();
-  //final AssetsAudioPlayer mymusicplayer = widget.mymusicplayer;
+
   Audio find(List<Audio> source, String fromPath) {
     return source.firstWhere((element) => element.path == fromPath);
   }
@@ -100,7 +98,7 @@ class _NowPlayingState extends State<NowPlaying> {
   soundduration(RealtimePlayingInfos realtimePlayingInfos) {
     // final durationpassing = realtimePlayingInfos.currentPosition;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Row(
         children: [Text('${realtimePlayingInfos.currentPosition}')],
       ),
@@ -109,100 +107,97 @@ class _NowPlayingState extends State<NowPlaying> {
 
   Widget songoptions(AssetsAudioPlayer audioPlayer) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40),
-      child: Container(
-        //color: Colors.amber,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-              //color: Colors.grey.shade600,
-              onPressed: () {
-                setState(
-                  () {
-                    if (loop == false) {
-                      loop = true;
-                      widget.mymusicplayer.setLoopMode(LoopMode.single);
-                    } else {
-                      loop = false;
-                      widget.mymusicplayer.setLoopMode(LoopMode.playlist);
-                    }
-                  },
-                );
-                // widget.mymusicplayer.toggleShuffle();
-              },
-              icon: loop == true
-                  ? Icon(
-                      Icons.repeat,
-                      color: Colors.red,
-                    )
-                  : const Icon(
-                      Icons.repeat,
-                      color: Colors.grey,
-                    ),
-            ),
-            Row(
-              children: [
-                IconButton(
-                    iconSize: 35,
+      padding: const EdgeInsets.symmetric(horizontal: 40),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            //color: Colors.grey.shade600,
+            onPressed: () {
+              setState(
+                () {
+                  if (loop == false) {
+                    loop = true;
+                    widget.mymusicplayer.setLoopMode(LoopMode.single);
+                  } else {
+                    loop = false;
+                    widget.mymusicplayer.setLoopMode(LoopMode.playlist);
+                  }
+                },
+              );
+              // widget.mymusicplayer.toggleShuffle();
+            },
+            icon: loop == true
+                ? const Icon(
+                    Icons.repeat,
+                    color: Colors.red,
+                  )
+                : const Icon(
+                    Icons.repeat,
                     color: Colors.grey,
-                    onPressed: () {
-                      widget.mymusicplayer.previous();
-                    },
-                    icon: const Icon(Icons.skip_previous_rounded)),
-                IconButton(
-                  iconSize: 53,
-                  color: Colors.grey,
-                  onPressed: () {
-                    widget.mymusicplayer.playOrPause();
-                    //myswipercontroller.next();
-                  },
-                  icon: PlayerBuilder.isPlaying(
-                      player: audioPlayer,
-                      builder: (context, isPlaying) {
-                        return Icon(isPlaying
-                            ? Icons.pause_circle_outline
-                            : Icons.play_circle_outline_rounded);
-                      }),
-                ),
-                IconButton(
+                  ),
+          ),
+          Row(
+            children: [
+              IconButton(
                   iconSize: 35,
                   color: Colors.grey,
                   onPressed: () {
-                    widget.mymusicplayer.next();
+                    widget.mymusicplayer.previous();
                   },
-                  icon: Icon(Icons.skip_next_rounded),
-                ),
-              ],
-            ),
-            IconButton(
-              //color: Colors.grey.shade600,
-              onPressed: () {
-                setState(
-                  () {
-                    if (shuffle == false) {
-                      shuffle = true;
-                      widget.mymusicplayer.toggleShuffle();
-                    } else {
-                      shuffle = false;
-                      widget.mymusicplayer.toggleShuffle();
-                    }
-                  },
-                );
-                // widget.mymusicplayer.toggleShuffle();
-              },
-              icon: shuffle == true
-                  ? Icon(
-                      Icons.shuffle,
-                      color: Colors.red,
-                    )
-                  : const Icon(
-                      Icons.shuffle,
-                      color: Colors.grey,
-                    ),
-            ),
-          ],
-        ),
+                  icon: const Icon(Icons.skip_previous_rounded)),
+              IconButton(
+                iconSize: 53,
+                color: Colors.grey,
+                onPressed: () {
+                  widget.mymusicplayer.playOrPause();
+                  //myswipercontroller.next();
+                },
+                icon: PlayerBuilder.isPlaying(
+                    player: audioPlayer,
+                    builder: (context, isPlaying) {
+                      return Icon(isPlaying
+                          ? Icons.pause_circle_outline
+                          : Icons.play_circle_outline_rounded);
+                    }),
+              ),
+              IconButton(
+                iconSize: 35,
+                color: Colors.grey,
+                onPressed: () {
+                  widget.mymusicplayer.next();
+                },
+                icon: const Icon(Icons.skip_next_rounded),
+              ),
+            ],
+          ),
+          IconButton(
+            //color: Colors.grey.shade600,
+            onPressed: () {
+              setState(
+                () {
+                  if (shuffle == false) {
+                    shuffle = true;
+                    widget.mymusicplayer.toggleShuffle();
+                  } else {
+                    shuffle = false;
+                    widget.mymusicplayer.toggleShuffle();
+                  }
+                },
+              );
+              // widget.mymusicplayer.toggleShuffle();
+            },
+            icon: shuffle == true
+                ? const Icon(
+                    Icons.shuffle,
+                    color: Colors.red,
+                  )
+                : const Icon(
+                    Icons.shuffle,
+                    color: Colors.grey,
+                  ),
+          ),
+        ],
       ),
     );
   }
@@ -213,7 +208,7 @@ class _NowPlayingState extends State<NowPlaying> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
+        iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: Colors.black,
         title: Text('NOW PLAYING', style: TextStyle(color: Colors.grey)),
       ),

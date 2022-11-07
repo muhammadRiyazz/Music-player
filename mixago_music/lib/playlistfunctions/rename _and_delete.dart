@@ -178,13 +178,14 @@ deleteplaylistalert({required String key, required BuildContext context}) {
   return showDialog(
       context: context,
       builder: (BuildContext context) {
+        final size = MediaQuery.of(context).size;
         return Dialog(
             backgroundColor: const Color.fromARGB(0, 255, 193, 7),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ), //this right here
             child: SizedBox(
-              height: 150,
+              height: size.height * 0.2,
               child: Column(
                 children: [
                   Expanded(

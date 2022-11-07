@@ -8,11 +8,14 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:mixago_music/screens/homescreen.dart';
-import 'package:mixago_music/screens/splashtwo.dart';
+
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modals/database_function.dart';
+
+bool? notificationvalue;
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -41,13 +44,20 @@ class _SplashState extends State<Splash> {
     tohomescreen();
   }
 
+  Future setboolvalue() async {
+    final mySharedPreferences = await SharedPreferences.getInstance();
+    notificationvalue = mySharedPreferences.getBool('notification');
+    notificationvalue = notificationvalue ??= true;
+  }
+
   Future storagepermision() async {
     await Permission.storage.request();
     log('permision');
   }
 
   Future fetchinternalsongs() async {
-    storagepermision();
+    await storagepermision();
+    await setboolvalue();
     fetchedintenalsongs = await myonAudioquery.querySongs(
         ignoreCase: true,
         uriType: UriType.EXTERNAL,
@@ -107,7 +117,7 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-          builder: (context) => splashtwo(myAudiolist: mysongslist)),
+          builder: (context) => HomeScreen(myAudiolist: mysongslist)),
     );
     log(mysongslist.length.toString());
   }

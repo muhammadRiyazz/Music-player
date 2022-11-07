@@ -18,8 +18,7 @@ class _RecentPlayState extends State<RecentPlay> {
   @override
   Widget build(BuildContext context) {
     Box<List> librarybox = getlibrarybox();
-    final List<Musics> recentSongsList =
-        librarybox.get('recent Played')!.toList().cast<Musics>();
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -145,23 +144,19 @@ class _RecentPlayState extends State<RecentPlay> {
                     //     ],
                     //   ),
                     // ),
-                    SizedBox(
-                      height: size.height * 0.012,
+
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      child: Text(
+                        'RECENT PLAYED',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
+                      ),
                     ),
-                    Text(
-                      'RECENT PLAYED',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
+
                     Text(
                       '${recentSongsList.length.toString()} SONGS ',
-                      style: TextStyle(color: Colors.grey.shade700),
-                    ),
-                    SizedBox(
-                      height: 10,
+                      style: TextStyle(color: Colors.grey.shade600),
                     ),
 
                     Expanded(

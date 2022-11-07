@@ -25,7 +25,7 @@ class Favorite extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         iconTheme: IconThemeData(color: Colors.grey),
-        title: Text(
+        title: const Text(
           'Favorite',
           style: TextStyle(color: Colors.grey),
         ),
@@ -133,86 +133,90 @@ class Favorite extends StatelessWidget {
                 //   ),
                 // ),
 
-                Text(
-                  'FAVOURITE SONGS',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: Text(
+                    'FAVOURITE SONGS',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
                 ),
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    '${favouriteSongsList.length} Songs',
-                    style: TextStyle(color: Colors.grey.shade700),
-                  ),
+                Text(
+                  '${favouriteSongsList.length} Songs',
+                  style: TextStyle(color: Colors.grey.shade700),
                 ),
 
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: favouriteSongsList.length,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        onTap: () {
-                          // swiper(
-                          //     context: context,
-                          //     myAudiolist: widget.myAudiolist,
-                          //     index: index);
-                          myminiplayer(
-                              context: context,
-                              myAudiolist: favouriteSongsList,
-                              index: index);
-                          addrecent(id: favouriteSongsList[index].id);
-                        },
-                        contentPadding: EdgeInsets.zero,
-                        leading: SizedBox(
-                          height: 55,
-                          width: 55,
-                          child: QueryArtworkWidget(
-                            artworkBorder: BorderRadius.circular(13),
-                            id: int.parse(favouriteSongsList[index].id),
-                            type: ArtworkType.AUDIO,
-                            nullArtworkWidget: ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset(
-                                'asset/img/music.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        title: Text(
-                          favouriteSongsList[index].title,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                        ),
-                        subtitle: Text(
-                          favouriteSongsList[index].artist,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            color: Colors.grey.shade700,
-                          ),
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GestureDetector(
+                  child: favouriteSongsList.isEmpty
+                      ? Center(
+                          child: Text('No Songs'),
+                        )
+                      : ListView.builder(
+                          itemCount: favouriteSongsList.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
                               onTap: () {
-                                bottansheet(
-                                    cxt: context,
-                                    myaudiolist: favouriteSongsList,
+                                // swiper(
+                                //     context: context,
+                                //     myAudiolist: widget.myAudiolist,
+                                //     index: index);
+                                myminiplayer(
+                                    context: context,
+                                    myAudiolist: favouriteSongsList,
                                     index: index);
+                                addrecent(id: favouriteSongsList[index].id);
                               },
-                              child: Icon(
-                                Icons.more_vert_rounded,
-                                color: Colors.grey.shade700,
+                              contentPadding: EdgeInsets.zero,
+                              leading: SizedBox(
+                                height: 55,
+                                width: 55,
+                                child: QueryArtworkWidget(
+                                  artworkBorder: BorderRadius.circular(13),
+                                  id: int.parse(favouriteSongsList[index].id),
+                                  type: ArtworkType.AUDIO,
+                                  nullArtworkWidget: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    child: Image.asset(
+                                      'asset/img/music.jpg',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
+                              title: Text(
+                                favouriteSongsList[index].title,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              subtitle: Text(
+                                favouriteSongsList[index].artist,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      bottansheet(
+                                          cxt: context,
+                                          myaudiolist: favouriteSongsList,
+                                          index: index);
+                                    },
+                                    child: Icon(
+                                      Icons.more_vert_rounded,
+                                      color: Colors.grey.shade700,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             );

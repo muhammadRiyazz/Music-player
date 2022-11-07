@@ -1,14 +1,11 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/modals/profilemodal.dart';
 import 'package:mixago_music/profilefunctions/editprofile.dart';
-import 'package:mixago_music/screens/widgets/playlist/playlistsongbottomsheet.dart';
 
 class profilescreen extends StatelessWidget {
   profilescreen({super.key});
@@ -16,9 +13,6 @@ class profilescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final userprofile = userdata.get('user');
-    // final name = userprofile?.username;
-    // final image = userprofile?.userimage;
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -36,8 +30,6 @@ class profilescreen extends StatelessWidget {
               ? 'asset/img/blank-profile-picture-973460_1280.webp'
               : userprofile.userimage;
 
-          // final name = userprofile?.username;
-          // final image = userprofile?.userimage;
           return Column(
             children: [
               Expanded(
