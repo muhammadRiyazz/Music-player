@@ -26,6 +26,7 @@ class _SplashState extends State<Splash> {
   List<SongModel> fetchedintenalsongs = [];
   Box<Musics> musicsBox = getsongsmodalbox();
   Box<List> librarybox = getlibrarybox();
+  List<SongModel> fetchedSongs = [];
 
   @override
   void initState() {
@@ -53,11 +54,20 @@ class _SplashState extends State<Splash> {
         orderType: OrderType.ASC_OR_SMALLER,
         sortType: SongSortType.DISPLAY_NAME);
     log('fetch');
+    tomp3();
     tohivebox();
   }
 
+  tomp3() {
+    for (var song in fetchedintenalsongs) {
+      if (song.fileExtension == 'mp3') {
+        fetchedSongs.add(song);
+      }
+    }
+  }
+
   tohivebox() async {
-    for (var songs in fetchedintenalsongs) {
+    for (var songs in fetchedSongs) {
       final mysong = Musics(
         id: songs.id.toString(),
         artist: songs.artist!,

@@ -5,6 +5,8 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 // ignore: implementation_imports
 import 'package:flutter/src/rendering/box.dart';
+import 'package:mixago_music/lyrics/lyricsbottumsheet.dart';
+import 'package:mixago_music/lyrics/lyricsget.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:mixago_music/screens/playlistpage.dart';
@@ -234,84 +236,121 @@ class _NowPlayingState extends State<NowPlaying> {
                   tileMode: TileMode.repeated,
                 ),
               ),
-              child: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color.fromARGB(255, 26, 12, 38),
-                      Color.fromARGB(255, 0, 0, 0)
-                    ],
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    stops: [0.2, 0.8],
-                    tileMode: TileMode.repeated,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: mysize.height * 0.03,
-                    ),
-                    swiper(
-                      mSize: mysize,
-                      mymusic: mycurrentaudio,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 7, bottom: 0, left: 55, right: 55),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              songname(widget.mymusicplayer),
-                              singername(widget.mymusicplayer),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            // ignore: prefer_const_literals_to_create_immutables
-                            children: [
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              GestureDetector(
-                                  onTap: () {
-                                    tofavoritehivebox(
-                                        context: context,
-                                        id: mycurrentaudio.metas.id.toString());
-                                  },
-                                  child: const Icon(Icons.favorite,
-                                      color: Colors.grey)),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return plalistpage(
-                                        id: mycurrentaudio.metas.id.toString());
-                                  }));
-                                },
-                                child: const Icon(Icons.playlist_add,
-                                    size: 28, color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: mysize.height * 0.03,
                       ),
-                    ),
-                    myprogresbar(widget.mymusicplayer),
-                    songoptions(widget.mymusicplayer),
-                  ],
-                ),
+                      swiper(
+                        mSize: mysize,
+                        mymusic: mycurrentaudio,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 7, bottom: 0, left: 55, right: 55),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                songname(widget.mymusicplayer),
+                                singername(widget.mymusicplayer),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              // ignore: prefer_const_literals_to_create_immutables
+                              children: [
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                GestureDetector(
+                                    onTap: () {
+                                      tofavoritehivebox(
+                                          context: context,
+                                          id: mycurrentaudio.metas.id
+                                              .toString());
+                                    },
+                                    child: const Icon(Icons.favorite,
+                                        color: Colors.grey)),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return plalistpage(
+                                          id: mycurrentaudio.metas.id
+                                              .toString());
+                                    }));
+                                  },
+                                  child: const Icon(Icons.playlist_add,
+                                      size: 28, color: Colors.grey),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      myprogresbar(widget.mymusicplayer),
+                      songoptions(widget.mymusicplayer),
+                    ],
+                  ),
+                  lyrics(newaudioPlayer: widget.mymusicplayer),
+                ],
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget lyrics({required AssetsAudioPlayer newaudioPlayer}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 43),
+      child: GestureDetector(
+        onTap: () async {
+          String data = await getlyrics(
+              myartist: newaudioPlayer.getCurrentAudioArtist,
+              mytitle: newaudioPlayer.getCurrentAudioTitle);
+          lyricsbottumsheet(context: context, larics: data);
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 35, 22, 46),
+                  Color.fromARGB(255, 36, 29, 29)
+                ],
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
+                stops: [0.2, 0.8],
+                tileMode: TileMode.repeated,
+              ),
+              // color: Colors.amber,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              )),
+          height: 50,
+          width: double.infinity,
+          child: Center(
+              child: Text(
+            'LYRICS',
+            style: TextStyle(
+                letterSpacing: 2,
+                fontSize: 14,
+                color: Colors.grey.shade500,
+                fontWeight: FontWeight.bold),
+          )),
         ),
       ),
     );

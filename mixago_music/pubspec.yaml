@@ -49,6 +49,9 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   slider_button: ^2.0.0
   image_picker: ^0.8.6
+  http: ^0.13.5
+  json_annotation: ^4.7.0
+  json_serializable: ^6.5.4
   
   
   
