@@ -1,7 +1,12 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:mixago_music/screens/splash.dart';
+import 'package:mixago_music/screens/termsandpolicy.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'privecyandpolicy.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -55,6 +60,7 @@ class _SettingsState extends State<Settings> {
         child: Column(
           children: [
             myListTile(
+              onpress: () {},
               text: 'Notification',
               firstmyicon: const Icon(Icons.notifications_active_outlined),
               lastmyicon: Switch(
@@ -67,14 +73,29 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             myListTile(
+                onpress: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return PrivecyPolicy();
+                    },
+                  ));
+                },
                 text: 'Privecy & Policy',
                 firstmyicon: const Icon(Icons.privacy_tip_outlined),
                 lastmyicon: const Icon(Icons.navigate_next_outlined)),
             myListTile(
+                onpress: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return TermsCoundition();
+                    },
+                  ));
+                },
                 text: 'Temrs & Coundition',
                 firstmyicon: const Icon(Icons.mark_unread_chat_alt_rounded),
                 lastmyicon: const Icon(Icons.navigate_next_outlined)),
             myListTile(
+                onpress: () {},
                 text: 'Resset App',
                 firstmyicon: const Icon(Icons.restore_outlined),
                 lastmyicon: const SizedBox()),
@@ -84,8 +105,13 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  myListTile({required String text, required Widget firstmyicon, lastmyicon}) {
+  myListTile(
+      {required String text,
+      required Widget firstmyicon,
+      lastmyicon,
+      required onpress}) {
     return ListTile(
+      onTap: onpress,
       iconColor: Colors.grey,
       trailing: lastmyicon,
       leading: firstmyicon,

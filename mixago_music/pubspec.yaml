@@ -53,6 +53,8 @@ dependencies:
   json_serializable: ^6.5.4
   shared_preferences: ^2.0.15
   share_plus: ^6.2.0
+  flutter_html: ^2.2.1
+  
   
   
   
