@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -50,8 +51,6 @@ class profilescreen extends StatelessWidget {
                       tileMode: TileMode.repeated,
                     ),
                   ),
-
-                  // color: Colors.amber,
                 ),
               ),
               Expanded(

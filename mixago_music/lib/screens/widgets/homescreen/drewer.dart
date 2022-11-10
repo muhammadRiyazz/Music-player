@@ -10,6 +10,8 @@ import 'package:mixago_music/screens/profilescreen.dart';
 import 'package:mixago_music/screens/settings.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../aboutalertbox.dart';
+
 Widget drawerfunction(BuildContext context) {
   Size size = MediaQuery.of(context).size;
   Box<UserProfile> userdata = getprofilebox();
@@ -135,6 +137,9 @@ Widget drawerfunction(BuildContext context) {
                 ),
               ),
               ListTile(
+                onTap: () {
+                  aboutalert(context: context);
+                },
                 leading: Icon(Icons.info_outline,
                     color: Colors.white.withOpacity(0.7)),
                 title: Text(
@@ -164,7 +169,8 @@ Widget drawerfunction(BuildContext context) {
               ),
               ListTile(
                   onTap: () async {
-                    // await Share.share( );
+                    await Share.share(
+                        'Download MIXAGO Music Player From Playstore and Enjoooooooooy ');
                   },
                   leading: Icon(Icons.ios_share_rounded,
                       color: Colors.white.withOpacity(0.7)),

@@ -11,6 +11,7 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 import 'package:mixago_music/screens/playlistpage.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -24,7 +25,7 @@ bottansheet(
 
   return showModalBottomSheet(
       isScrollControlled: true,
-      backgroundColor: const Color.fromARGB(0, 223, 157, 157),
+      backgroundColor: Color.fromARGB(0, 223, 157, 157),
       context: cxt,
       builder: (BuildContext context) {
         Box<List> librarybox = getlibrarybox();
@@ -35,7 +36,7 @@ bottansheet(
             GlassContainer(
               borderRadius: BorderRadius.circular(15),
               blur: 5,
-              color: Colors.black54.withOpacity(0.5),
+              color: const Color.fromARGB(144, 0, 0, 0).withOpacity(0.5),
               //height: size.height * 0.47,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,7 +94,7 @@ bottansheet(
                     title: const Text(
                       'Add To Playlist',
                     ),
-                    leading: Icon(Icons.playlist_add),
+                    leading: const Icon(Icons.playlist_add),
                   ),
                   ValueListenableBuilder(
                     valueListenable: librarybox.listenable(),
@@ -103,7 +104,10 @@ bottansheet(
                           id: myaudiolist[index].id, snakctxt: context);
                     },
                   ),
-                  const ListTile(
+                  ListTile(
+                    onTap: () async {
+                      await Share.share('..');
+                    },
                     iconColor: Colors.grey,
                     textColor: Colors.grey,
                     title: Text('Share'),

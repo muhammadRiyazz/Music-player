@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'lyricsresponse.g.dart';
@@ -19,6 +21,7 @@ class Lyricsresponse {
   });
 
   factory Lyricsresponse.fromJson(Map<String, dynamic> json) {
+    log('modallyric');
     return _$LyricsresponseFromJson(json);
   }
 

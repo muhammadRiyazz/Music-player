@@ -22,9 +22,10 @@ playlistsbottansheet({required BuildContext context, required String key}) {
       builder: (BuildContext context) {
         return StatefulBuilder(builder: ((context, setState) {
           return Padding(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: GlassContainer(
-              borderRadius: const BorderRadius.all(Radius.circular(25)),
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(25), topRight: Radius.circular(25)),
               blur: 1,
               child: Padding(
                 padding: EdgeInsets.only(
@@ -47,7 +48,7 @@ playlistsbottansheet({required BuildContext context, required String key}) {
                     children: [
                       Padding(
                         padding:
-                            const EdgeInsets.only(top: 25, right: 5, left: 5),
+                            const EdgeInsets.only(top: 5, right: 5, left: 5),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +60,7 @@ playlistsbottansheet({required BuildContext context, required String key}) {
                                 child: const Text('Cancel')),
                             Container(
                               // color: Colors.black,
-                              padding: EdgeInsets.all(16),
+                              padding: EdgeInsets.all(14),
                               height: size.height * 0.21,
                               width: size.width * 0.54,
 
@@ -193,8 +194,7 @@ deleteplaylistalert({required String key, required BuildContext context}) {
                         width: double.infinity,
                         borderRadius: BorderRadius.circular(15),
                         blur: 2,
-                        color: const Color.fromARGB(148, 11, 0, 0)
-                            .withOpacity(0.6),
+                        //color: Color.fromARGB(54, 11, 0, 0).withOpacity(0.1),
                         child: const Center(child: Text('Are You Sure?'))),
                   ),
                   Padding(

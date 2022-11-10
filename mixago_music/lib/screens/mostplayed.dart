@@ -28,10 +28,10 @@ class _MostPlayState extends State<MostPlay> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        iconTheme: const IconThemeData(color: Colors.grey),
-        title: const Text(
-          'Most Played',
-          style: TextStyle(color: Colors.grey),
+        iconTheme: IconThemeData(color: Colors.grey.shade300),
+        title: Text(
+          'Most Played'.toUpperCase(),
+          style: TextStyle(color: Colors.grey.shade300),
         ),
       ),
       body: Container(

@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -58,7 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
-          title: Image.asset('asset/img/MIXAGO.png'),
+          title: TextLiquidFill(
+            text: 'MIXAGO', waveDuration: Duration(minutes: 1),
+            waveColor: Color.fromARGB(255, 153, 147, 147),
+            // boxBackgroundColor: Colors.redAccent,
+            textStyle: const TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+            boxHeight: 300.0,
+          ),
           actions: [
             IconButton(
                 onPressed: () {
@@ -74,9 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   );
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.search,
-                  color: Colors.grey,
+                  color: Colors.grey.shade300,
                 )),
           ],
           iconTheme: const IconThemeData(color: Colors.grey),
@@ -143,12 +153,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.only(bottom: 5),
                           child: Text(
                             'LIBRARY',
                             style: TextStyle(
                                 color: (Colors.grey.shade400),
-                                fontSize: 17,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -156,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           builder: (BuildContext context, Box<List> value,
                               Widget? child) {
                             return SizedBox(
-                              height: 100,
+                              height: size.height * 0.12,
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: [
@@ -216,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                             child: Center(
                               child: Container(
-                                height: size.height * 0.07,
+                                height: size.height * 0.06,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
                                   gradient: const LinearGradient(
@@ -234,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Text(
                                   'PLAYLIST',
                                   style: TextStyle(
-                                      fontSize: size.width * 0.04,
+                                      fontSize: 16,
                                       color: Colors.grey.shade500,
                                       fontWeight: FontWeight.bold),
                                 )),

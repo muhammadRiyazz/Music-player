@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 Future<String> getlyrics({required mytitle, required myartist}) async {
+  log('lyrics');
   var uri = Uri.https(
     'powerlyrics.p.rapidapi.com',
     'getlyricsfromtitleandartist',
@@ -17,10 +18,11 @@ Future<String> getlyrics({required mytitle, required myartist}) async {
     },
   );
   final bodyasjson = jsonDecode(response.body) as Map<String, dynamic>;
-  // log(bodyasjson.toString());
+  log(bodyasjson.toString());
   log(bodyasjson["lyrics"].toString());
-  String data = bodyasjson['lyrics'] == null
+  String lyricstring = bodyasjson['lyrics'] == null
       ? 'No Lyrics found'
       : bodyasjson["lyrics"].toString();
-  return data;
+  log(lyricstring);
+  return lyricstring;
 }

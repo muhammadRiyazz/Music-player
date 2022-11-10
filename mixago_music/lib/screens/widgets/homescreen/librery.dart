@@ -25,7 +25,7 @@ library(
             ),
             //  color: Colors.amber,
             borderRadius: BorderRadius.circular(6)),
-        width: 180,
+        width: size.width * 0.47,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -33,24 +33,17 @@ library(
               Padding(
                 padding: const EdgeInsets.only(left: 12, top: 10, bottom: 3),
                 child: SizedBox(
-                  width: 125,
+                  width: size.width * 0.37,
                   child: Text(
                     libraryname,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: size.width * 0.044,
+                        fontSize: 16,
                         color: Colors.grey.shade500),
                   ),
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 8),
-              //   child: Text(
-              //     '${songcount} SONGS',
-              //     style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-              //   ),
-              // )
             ]),
           ],
         ),

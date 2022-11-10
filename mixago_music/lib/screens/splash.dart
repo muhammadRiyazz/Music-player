@@ -2,8 +2,10 @@
 
 import 'dart:developer';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
@@ -64,11 +66,11 @@ class _SplashState extends State<Splash> {
         orderType: OrderType.ASC_OR_SMALLER,
         sortType: SongSortType.DISPLAY_NAME);
     log('fetch');
-    tomp3();
-    tohivebox();
+    await tomp3();
+    await tohivebox();
   }
 
-  tomp3() {
+  tomp3() async {
     for (var song in fetchedintenalsongs) {
       if (song.fileExtension == 'mp3') {
         fetchedSongs.add(song);
@@ -111,9 +113,9 @@ class _SplashState extends State<Splash> {
   }
 
   tohomescreen() async {
-    List<Musics> mysongslist = musicsBox.values.toList();
+    List<Musics> mysongslist = await musicsBox.values.toList();
     log('to list');
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 6));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -126,28 +128,26 @@ class _SplashState extends State<Splash> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: const Color(0xFF030312),
-          child: Center(
-              child: Stack(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedOpacity(
-                curve: Curves.elasticOut,
-                duration: const Duration(seconds: 4),
-                opacity: 1,
-                child: Image.asset('asset/img/logo_samp.png'),
-              ),
-              Positioned(
-                top: 120,
-                left: 38,
-                child: AnimatedOpacity(
-                    curve: Curves.elasticOut,
-                    duration: const Duration(seconds: 9),
-                    opacity: 1,
-                    child: Image.asset('asset/img/MIXAGO.png')),
-              ),
-            ],
-          ))),
+        color: const Color.fromARGB(255, 0, 0, 0),
+        child: Center(
+            child: SizedBox(
+          // width: 250.0,
+          child: TextLiquidFill(
+            waveDuration: const Duration(seconds: 4),
+            text: 'MIXAGO',
+            waveColor: const Color.fromARGB(255, 98, 120, 158),
+
+            ///boxBackgroundColor: Color.fromARGB(255, 0, 0, 0),
+            textStyle: const TextStyle(
+              fontFamily: 'Viga',
+              color: Colors.white,
+              fontSize: 40.0,
+              fontWeight: FontWeight.bold,
+            ),
+            boxHeight: 300.0,
+          ),
+        )),
+      ),
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -102,11 +103,14 @@ bottansheetinplaylistlisttile(
                           id: myaudiolist[index].id, snakctxt: context);
                     },
                   ),
-                  const ListTile(
+                  ListTile(
+                    onTap: () async {
+                      await Share.share('..');
+                    },
                     iconColor: Colors.grey,
                     textColor: Colors.grey,
-                    title: Text('Share'),
-                    leading: Icon(Icons.ios_share_outlined),
+                    title: const Text('Share'),
+                    leading: const Icon(Icons.ios_share_outlined),
                   )
                 ],
               ),
@@ -156,12 +160,13 @@ songremove(
   // ignore: use_build_context_synchronously
   showTopSnackBar(
       context,
-      const CustomSnackBar.error(
+      CustomSnackBar.error(
           iconPositionLeft: 1,
-          backgroundColor: Color.fromARGB(196, 43, 42, 42),
+          textScaleFactor: 0.8,
+          backgroundColor: Color.fromARGB(255, 24, 24, 33),
           messagePadding: EdgeInsets.zero,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          message: 'Removed From Playlist'));
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          message: 'REMOVED FROM $key'.toUpperCase()));
 
   log('remove');
 }

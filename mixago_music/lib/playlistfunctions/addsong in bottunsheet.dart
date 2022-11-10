@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -30,21 +29,23 @@ addtoplaylist(
     log('add song to playlist');
     showTopSnackBar(
         context,
-        CustomSnackBar.error(
+        CustomSnackBar.success(
             iconPositionLeft: 1,
-            backgroundColor: const Color.fromARGB(196, 43, 42, 42),
+            textScaleFactor: 0.8,
+            backgroundColor: Color.fromARGB(255, 24, 24, 33),
             messagePadding: EdgeInsets.zero,
-            borderRadius: const BorderRadius.all(Radius.circular(10)),
-            message: 'Added To $key -Playlist '));
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
+            message: 'Added To $key'.toUpperCase()));
   } else {
     log('already');
     showTopSnackBar(
         context,
-        const CustomSnackBar.error(
+        CustomSnackBar.info(
             iconPositionLeft: 1,
-            backgroundColor: Color.fromARGB(196, 43, 42, 42),
+            textScaleFactor: 0.8,
+            backgroundColor: Color.fromARGB(255, 24, 24, 33),
             messagePadding: EdgeInsets.zero,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            message: 'This Is Already In Your Playlist  '));
+            borderRadius: BorderRadius.all(Radius.circular(15)),
+            message: 'This Is Already In Your Playlist'.toUpperCase()));
   }
 }

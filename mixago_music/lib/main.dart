@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/modals/profilemodal.dart';
-import 'package:mixago_music/screens/playlistpage.dart';
 
 import 'package:mixago_music/screens/splash.dart';
 

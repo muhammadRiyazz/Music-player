@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:mixago_music/screens/splash.dart';
-import 'package:mixago_music/screens/termsandpolicy.dart';
+import 'package:mixago_music/screens/termsandcoundition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'privecyandpolicy.dart';
@@ -33,11 +34,11 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.grey),
+        iconTheme: IconThemeData(color: Colors.grey.shade300),
         backgroundColor: Colors.black,
-        title: const Text(
-          'Settings',
-          style: TextStyle(color: Colors.grey),
+        title: Text(
+          'Settings'.toUpperCase(),
+          style: TextStyle(color: Colors.grey.shade300),
         ),
       ),
       //backgroundColor: Colors.black,
@@ -81,7 +82,7 @@ class _SettingsState extends State<Settings> {
                   ));
                 },
                 text: 'Privecy & Policy',
-                firstmyicon: const Icon(Icons.privacy_tip_outlined),
+                firstmyicon: const Icon(Icons.policy_outlined),
                 lastmyicon: const Icon(Icons.navigate_next_outlined)),
             myListTile(
                 onpress: () {
@@ -91,14 +92,33 @@ class _SettingsState extends State<Settings> {
                     },
                   ));
                 },
-                text: 'Temrs & Coundition',
+                text: 'Terms & Counditions',
                 firstmyicon: const Icon(Icons.mark_unread_chat_alt_rounded),
                 lastmyicon: const Icon(Icons.navigate_next_outlined)),
             myListTile(
-                onpress: () {},
-                text: 'Resset App',
-                firstmyicon: const Icon(Icons.restore_outlined),
-                lastmyicon: const SizedBox()),
+              onpress: () {
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return LicensePage(
+                      applicationVersion: 'Version 1.0.0',
+                      applicationName: 'MIXAGO',
+                      applicationIcon: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 80,
+                          width: 100,
+                          child: Image.asset(
+                              'asset/img/music-and-sound-logo-design-vector 2.png'),
+                        ),
+                      ),
+                    );
+                  },
+                ));
+              },
+              text: 'Licenses',
+              firstmyicon: const Icon(Icons.privacy_tip_sharp),
+              lastmyicon: const Icon(Icons.navigate_next_outlined),
+            ),
           ],
         ),
       ),

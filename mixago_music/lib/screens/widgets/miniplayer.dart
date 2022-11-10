@@ -9,9 +9,6 @@ import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/screens/nowplaying.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:mixago_music/screens/homescreen.dart';
-
-import 'package:rxdart/src/streams/value_stream.dart';
 
 myminiplayer(
     {required BuildContext context,
@@ -93,7 +90,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
       builder: (context, playing) {
         final myaudio = find(mySongs, playing.audio.assetAudioPath);
         return SizedBox(
-          height: size.height * 0.15,
+          height: 109,
           width: double.infinity,
           child: Swiper(
             itemCount: widget.myAudiolist.length,
@@ -113,122 +110,152 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           height: size.height * 0.030,
                           width: double.infinity,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => NowPlaying(
-                                  mymusicplayer: mymusicplayer,
-                                  mylist: mySongs,
-                                  index: widget.index,
-                                  allsonglist: widget.myAudiolist,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: size.width * 0.03),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NowPlaying(
+                                    mymusicplayer: mymusicplayer,
+                                    mylist: mySongs,
+                                    index: widget.index,
+                                    allsonglist: widget.myAudiolist,
+                                  ),
                                 ),
+                              );
+                            },
+                            child: GlassContainer(
+                              color: Color.fromARGB(246, 11, 3, 29)
+                                  .withOpacity(0.4),
+                              blur: 9,
+                              height: 77,
+                              width: double.infinity,
+                              child: mymusicplayer.builderRealtimePlayingInfos(
+                                builder: (context, realtimePlayingInfos) {
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        //contentPadding: EdgeInsets.zero,
+                                        leading: SizedBox(
+                                          width: size.width * 0.17,
+                                        ),
+                                        title: SizedBox(
+                                          width: 90,
+                                          child: Text(
+                                            realtimePlayingInfos.current!.audio
+                                                .audio.metas.title!,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey,
+                                              fontSize: 17,
+                                            ),
+                                          ),
+                                        ),
+                                        subtitle: SizedBox(
+                                          width: 120,
+                                          child: Text(
+                                            realtimePlayingInfos.current!.audio
+                                                .audio.metas.artist!,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.grey),
+                                          ),
+                                        ),
+                                        trailing: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            mymusicplayer
+                                                        .getCurrentAudioTitle ==
+                                                    widget.myAudiolist[0].title
+                                                ? SizedBox()
+                                                : IconButton(
+                                                    onPressed: () {
+                                                      mymusicplayer.previous();
+                                                    },
+                                                    icon: Icon(
+                                                      size: 32,
+                                                      Icons
+                                                          .skip_previous_outlined,
+                                                      color:
+                                                          Colors.grey.shade600,
+                                                    ),
+                                                  ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                mymusicplayer.playOrPause();
+                                              },
+                                              child: Icon(
+                                                  size: 45,
+                                                  color: Colors.grey,
+                                                  realtimePlayingInfos.isPlaying
+                                                      ? Icons
+                                                          .pause_circle_outline_rounded
+                                                      : Icons
+                                                          .play_circle_outline_rounded),
+                                            ),
+                                            mymusicplayer
+                                                        .getCurrentAudioTitle ==
+                                                    widget
+                                                        .myAudiolist[widget
+                                                                .myAudiolist
+                                                                .length -
+                                                            1]
+                                                        .title
+                                                ? SizedBox()
+                                                : IconButton(
+                                                    onPressed: () {
+                                                      mymusicplayer.next();
+                                                    },
+                                                    icon: Icon(
+                                                      size: 32,
+                                                      Icons.skip_next_outlined,
+                                                      color:
+                                                          Colors.grey.shade600,
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 14),
+                                        child: ProgressBar(
+                                            timeLabelPadding: 0,
+                                            thumbGlowRadius: 0,
+                                            timeLabelType:
+                                                TimeLabelType.totalTime,
+                                            //thumbCanPaintOutsideBar: true,
+                                            thumbColor: const Color.fromARGB(
+                                                255, 1, 104, 155),
+                                            thumbRadius: 0,
+                                            barHeight: 1,
+                                            timeLabelTextStyle: TextStyle(
+                                                fontSize: 1,
+                                                color: Colors.yellow
+                                                    .withOpacity(0.0)),
+                                            progress: realtimePlayingInfos
+                                                .currentPosition,
+                                            total:
+                                                realtimePlayingInfos.duration),
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
-                            );
-                          },
-                          child: GlassContainer(
-                            color: const Color.fromARGB(246, 25, 2, 2)
-                                .withOpacity(0.3),
-                            blur: 9,
-                            height: size.height * 0.12,
-                            width: double.infinity,
-                            child: mymusicplayer.builderRealtimePlayingInfos(
-                              builder: (context, realtimePlayingInfos) {
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      //contentPadding: EdgeInsets.zero,
-                                      leading: SizedBox(
-                                        width: size.width * 0.19,
-                                      ),
-                                      title: SizedBox(
-                                        width: 50,
-                                        child: Text(
-                                          realtimePlayingInfos.current!.audio
-                                              .audio.metas.title!,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey,
-                                            fontSize: 17,
-                                          ),
-                                        ),
-                                      ),
-                                      subtitle: SizedBox(
-                                        width: 100,
-                                        child: Text(
-                                          realtimePlayingInfos.current!.audio
-                                              .audio.metas.artist!,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 13, color: Colors.grey),
-                                        ),
-                                      ),
-                                      trailing: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          IconButton(
-                                            onPressed: () {
-                                              mymusicplayer.previous();
-                                            },
-                                            icon: Icon(
-                                              size: 32,
-                                              Icons.skip_previous_outlined,
-                                              color: Colors.grey.shade600,
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              mymusicplayer.playOrPause();
-                                            },
-                                            child: Icon(
-                                                size: 45,
-                                                color: Colors.grey,
-                                                realtimePlayingInfos.isPlaying
-                                                    ? Icons
-                                                        .pause_circle_outline_rounded
-                                                    : Icons
-                                                        .play_circle_outline_rounded),
-                                          ),
-                                          IconButton(
-                                            onPressed: () {
-                                              mymusicplayer.next();
-                                            },
-                                            icon: Icon(
-                                              size: 32,
-                                              Icons.skip_next_outlined,
-                                              color: Colors.grey.shade600,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    ProgressBar(
-                                        thumbGlowRadius: 0,
-                                        timeLabelType: TimeLabelType.totalTime,
-                                        //thumbCanPaintOutsideBar: true,
-                                        thumbColor: Colors.blueGrey,
-                                        thumbRadius: 1,
-                                        barHeight: 2,
-                                        timeLabelTextStyle: TextStyle(
-                                            fontSize: 1,
-                                            color:
-                                                Colors.yellow.withOpacity(0)),
-                                        progress: realtimePlayingInfos
-                                            .currentPosition,
-                                        total: realtimePlayingInfos.duration),
-                                  ],
-                                );
-                              },
                             ),
                           ),
                         ),
                       ],
                     ),
                     Positioned(
-                        right: size.width * 0.75,
+                        // right: size.width * 0.80,
                         top: 10,
+                        left: size.width * 0.06,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -246,8 +273,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           child: GlassContainer(
                             blur: 5,
                             color: Colors.black.withOpacity(0.1),
-                            height: 75,
-                            width: 75,
+                            height: 72,
+                            width: 72,
                             child: Padding(
                               padding: const EdgeInsets.all(7.0),
                               child: QueryArtworkWidget(

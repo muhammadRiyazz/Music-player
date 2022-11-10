@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class PrivecyPolicy extends StatelessWidget {
@@ -121,25 +119,29 @@ class PrivecyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
+        title: Text(
+          'Privecy And Policy',
+          style: TextStyle(color: Colors.grey.shade300),
+        ),
+        iconTheme: IconThemeData(color: Colors.grey.shade300),
         backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 26, 12, 38),
-                  Color.fromARGB(255, 0, 0, 0)
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.2, 0.8],
-                tileMode: TileMode.repeated,
-              ),
-              //  color: Colors.amber,
-              borderRadius: BorderRadius.circular(6)),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color.fromARGB(255, 26, 12, 38),
+                Color.fromARGB(255, 0, 0, 0)
+              ],
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              stops: [0.2, 0.8],
+              tileMode: TileMode.repeated,
+            ),
+            //  color: Colors.amber,
+          ),
           child: Html(data: htmldata),
         ),
       ),
