@@ -145,13 +145,16 @@ class _NowPlayingState extends State<NowPlaying> {
           ),
           Row(
             children: [
-              IconButton(
-                  iconSize: 35,
-                  color: Colors.grey,
-                  onPressed: () {
+              GestureDetector(
+                  onDoubleTap: () {},
+                  onTap: () {
                     widget.mymusicplayer.previous();
                   },
-                  icon: const Icon(Icons.skip_previous_rounded)),
+                  child: const Icon(
+                    Icons.skip_previous_rounded,
+                    size: 35,
+                    color: Colors.grey,
+                  )),
               IconButton(
                 iconSize: 53,
                 color: Colors.grey,
@@ -167,14 +170,16 @@ class _NowPlayingState extends State<NowPlaying> {
                           : Icons.play_circle_outline_rounded);
                     }),
               ),
-              IconButton(
-                iconSize: 35,
-                color: Colors.grey,
-                onPressed: () {
-                  widget.mymusicplayer.next();
-                },
-                icon: const Icon(Icons.skip_next_rounded),
-              ),
+              GestureDetector(
+                  onDoubleTap: () {},
+                  onTap: () {
+                    widget.mymusicplayer.next();
+                  },
+                  child: const Icon(
+                    Icons.skip_next_rounded,
+                    size: 35,
+                    color: Colors.grey,
+                  )),
             ],
           ),
           IconButton(
