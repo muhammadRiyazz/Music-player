@@ -172,12 +172,13 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                             mymusicplayer
                                                         .getCurrentAudioTitle ==
                                                     widget.myAudiolist[0].title
-                                                ? SizedBox()
-                                                : IconButton(
-                                                    onPressed: () {
+                                                ? const SizedBox()
+                                                : GestureDetector(
+                                                    onDoubleTap: () {},
+                                                    onTap: () {
                                                       mymusicplayer.previous();
                                                     },
-                                                    icon: Icon(
+                                                    child: Icon(
                                                       size: 32,
                                                       Icons
                                                           .skip_previous_outlined,
@@ -206,18 +207,19 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                                                 .length -
                                                             1]
                                                         .title
-                                                ? SizedBox()
-                                                : IconButton(
-                                                    onPressed: () {
+                                                ? const SizedBox()
+                                                : GestureDetector(
+                                                    onDoubleTap: () {},
+                                                    onTap: () {
                                                       mymusicplayer.next();
                                                     },
-                                                    icon: Icon(
+                                                    child: Icon(
                                                       size: 32,
                                                       Icons.skip_next_outlined,
                                                       color:
                                                           Colors.grey.shade600,
                                                     ),
-                                                  )
+                                                  ),
                                           ],
                                         ),
                                       ),

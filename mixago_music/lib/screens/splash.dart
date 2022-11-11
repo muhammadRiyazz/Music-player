@@ -43,7 +43,6 @@ class _SplashState extends State<Splash> {
     putfavouritelist();
     putrecentlist();
     putmostplayedlist();
-    tohomescreen();
   }
 
   Future setboolvalue() async {
@@ -68,6 +67,7 @@ class _SplashState extends State<Splash> {
     log('fetch');
     await tomp3();
     await tohivebox();
+    await tohomescreen();
   }
 
   tomp3() async {

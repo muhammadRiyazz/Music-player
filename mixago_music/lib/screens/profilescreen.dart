@@ -97,8 +97,7 @@ class profilescreen extends StatelessWidget {
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(16),
-                          child: Padding(
-                            padding: EdgeInsets.only(top: size.height * 0.09),
+                          child: Center(
                             child: Container(
                               height: size.height * 0.067,
                               decoration: BoxDecoration(

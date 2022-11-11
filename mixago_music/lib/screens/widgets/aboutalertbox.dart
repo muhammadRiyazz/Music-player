@@ -10,7 +10,7 @@ aboutalert({required BuildContext context}) {
         backgroundColor: Colors.amber.withOpacity(0.0),
         child: GlassContainer(
           color: Colors.black.withOpacity(0.04),
-          height: size.height * 0.17,
+          height: size.height * 0.18,
           child: Padding(
             padding: const EdgeInsets.only(),
             child: Column(
@@ -32,7 +32,7 @@ aboutalert({required BuildContext context}) {
                   ),
                 ),
                 Align(
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.center,
                     child: TextButton(
                         onPressed: () {
                           Navigator.pop(context);
