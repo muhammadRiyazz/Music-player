@@ -3,6 +3,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:mixago_music/presentaion/screen%20settings/page_licenses/licenses.dart';
+import 'package:mixago_music/presentaion/screen%20settings/page_privecy_policy/privecy_policy.dart';
+import 'package:mixago_music/presentaion/screen%20settings/page_terms_conditions/tems_conditions.dart';
 import 'package:mixago_music/screens/splash.dart';
 import 'package:mixago_music/screens/termsandcoundition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -99,19 +102,7 @@ class _SettingsState extends State<Settings> {
               onpress: () {
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return LicensePage(
-                      applicationVersion: 'Version 1.0.0',
-                      applicationName: 'MIXAGO',
-                      applicationIcon: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 80,
-                          width: 100,
-                          child: Image.asset(
-                              'asset/img/music-and-sound-logo-design-vector 2.png'),
-                        ),
-                      ),
-                    );
+                    return licenses();
                   },
                 ));
               },

@@ -5,9 +5,6 @@ import 'package:mixago_music/presentaion/screen%20favourites/favourite.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/library.dart';
 import 'package:mixago_music/presentaion/screen%20most%20played/mostplayed.dart';
 import 'package:mixago_music/presentaion/screen%20recent%20played/recentplay.dart';
-import 'package:mixago_music/screens/favorite.dart';
-import 'package:mixago_music/screens/mostplayed.dart';
-import 'package:mixago_music/screens/recentlyplay.dart';
 
 class LibraryList extends StatelessWidget {
   const LibraryList({
@@ -58,7 +55,7 @@ class LibraryList extends StatelessWidget {
                   songcount: recentsonglist.length.toString(),
                   onpress: () => Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return RecentPlay();
+                          return const RecentPlay();
                         },
                       )),
                   context: context,

@@ -23,7 +23,7 @@ addrecent({required String id, required BuildContext context}) async {
   selectedsong.count = (mostcount! + 1);
 
   if (selectedsong.count! > 5) {
-    addmostplayed(id: id);
+    addmostplayed(id: id, context: context);
   }
 
   if (recentsonglist.length > 7) {

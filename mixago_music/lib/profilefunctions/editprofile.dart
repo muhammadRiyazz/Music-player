@@ -59,7 +59,7 @@ class _profileeditpageState extends State<profileeditpage> {
             children: [
               Container(
                 // color: Colors.black,
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 height: size.height * 0.29,
                 width: size.width * 0.64,
 

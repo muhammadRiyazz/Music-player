@@ -8,6 +8,7 @@ import 'package:mixago_music/modals/profilemodal.dart';
 
 import 'package:mixago_music/screens/splash.dart';
 
+import 'Appilcations/bloc file/mostplay/mostplay_bloc.dart';
 import 'modals/Musics.dart';
 
 void main() async {
@@ -43,6 +44,9 @@ class _MixagoState extends State<Mixago> {
         ),
         BlocProvider(
           create: (context) => FavouritesBloc(),
+        ),
+        BlocProvider(
+          create: (context) => MostplayBloc(),
         ),
       ],
       child: MaterialApp(

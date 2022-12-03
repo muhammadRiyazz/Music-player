@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/recent/recent_bloc.dart';
-import 'package:mixago_music/modals/Musics.dart';
-import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/presentaion/main%20widget/songlist.dart';
 
 class RecentPlay extends StatelessWidget {

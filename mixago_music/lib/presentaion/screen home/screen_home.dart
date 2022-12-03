@@ -7,9 +7,7 @@ import 'package:mixago_music/Appilcations/bloc%20file/Search/search_bloc.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/presentaion/main%20widget/songlist.dart';
-import 'package:mixago_music/presentaion/screen%20home/widgers/Play_list_container.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/Song_count.dart';
-import 'package:mixago_music/presentaion/screen%20home/widgers/librarylist.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/visible_part.dart';
 
 import 'package:mixago_music/screens/widgets/homescreen/drewer.dart';
