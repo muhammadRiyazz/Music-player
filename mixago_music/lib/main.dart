@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/Search/search_bloc.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/recent/recent_bloc.dart';
 import 'package:mixago_music/modals/profilemodal.dart';
 
 import 'package:mixago_music/screens/splash.dart';
 
 import 'modals/Musics.dart';
 
-void main(List<String> args) async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(MusicsAdapter());
@@ -29,23 +33,36 @@ class Mixago extends StatefulWidget {
 class _MixagoState extends State<Mixago> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        pageTransitionsTheme: const PageTransitionsTheme(
-          builders: <TargetPlatform, PageTransitionsBuilder>{
-            TargetPlatform.android: ZoomPageTransitionsBuilder(),
-          },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchBloc(),
         ),
-        bottomSheetTheme: BottomSheetThemeData(
-          backgroundColor: Colors.white.withOpacity(0.1),
+        BlocProvider(
+          create: (context) => RecentBloc(),
         ),
-        primarySwatch: Colors.grey,
-        textTheme: TextTheme(
-          bodyText2: TextStyle(color: Colors.grey.shade300),
+        BlocProvider(
+          create: (context) => FavouritesBloc(),
         ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: <TargetPlatform, PageTransitionsBuilder>{
+              TargetPlatform.android: ZoomPageTransitionsBuilder(),
+            },
+          ),
+          bottomSheetTheme: BottomSheetThemeData(
+            backgroundColor: Colors.white.withOpacity(0.1),
+          ),
+          primarySwatch: Colors.grey,
+          textTheme: TextTheme(
+            bodyText2: TextStyle(color: Colors.grey.shade300),
+          ),
+        ),
+        home: const Splash(),
       ),
-      home: const Splash(),
     );
   }
 }

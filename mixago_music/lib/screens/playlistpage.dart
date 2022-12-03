@@ -317,7 +317,9 @@ class _plalistpageState extends State<plalistpage> {
                                         context: context,
                                         myAudiolist: Playlistsongs,
                                         index: Index);
-                                    addrecent(id: Playlistsongs[Index].id);
+                                    addrecent(
+                                        id: Playlistsongs[Index].id,
+                                        context: context);
                                   },
                                   contentPadding: EdgeInsets.zero,
                                   leading: SizedBox(

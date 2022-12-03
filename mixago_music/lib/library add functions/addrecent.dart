@@ -1,11 +1,14 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/recent/recent_bloc.dart';
 import 'package:mixago_music/library%20add%20functions/addmostplay.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
 
-addrecent({required String id}) async {
+addrecent({required String id, required BuildContext context}) async {
   log('function call');
   Box<Musics> allsongs = getsongsmodalbox();
 
@@ -31,11 +34,13 @@ addrecent({required String id}) async {
     recentsonglist.insert(0, selectedsong);
     log(recentsonglist.length.toString());
     await alllibrary.put('recent Played', recentsonglist);
+    BlocProvider.of<RecentBloc>(context).add(const Recentlistchanging());
   } else {
     recentsonglist.removeWhere((song) => selectedsong.id == song.id);
     log(recentsonglist.length.toString());
     recentsonglist.insert(0, selectedsong);
     log(recentsonglist.length.toString());
     await alllibrary.put('recent Played', recentsonglist);
+    BlocProvider.of<RecentBloc>(context).add(const Recentlistchanging());
   }
 }

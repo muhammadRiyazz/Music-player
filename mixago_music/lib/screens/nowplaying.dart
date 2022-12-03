@@ -44,11 +44,6 @@ class _NowPlayingState extends State<NowPlaying> {
   var loop = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget songname(AssetsAudioPlayer musicplayer) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 5),

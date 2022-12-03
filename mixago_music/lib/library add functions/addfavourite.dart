@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter_flushbar/flutter_flushbar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:flutter/material.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -21,28 +22,30 @@ Future tofavoritehivebox(
   if (favouriteSongsList.where((song) => fvrtmusic.id == song.id).isEmpty) {
     favouriteSongsList.add(fvrtmusic);
     await librarybox.put('Favourites', favouriteSongsList);
+    BlocProvider.of<FavouritesBloc>(context).add(const Listchanging());
     showTopSnackBar(
         context,
         CustomSnackBar.success(
           textScaleFactor: 0.8,
           iconPositionLeft: 2,
-          backgroundColor: Color.fromARGB(255, 24, 24, 33),
+          backgroundColor: const Color.fromARGB(255, 24, 24, 33),
           messagePadding: EdgeInsets.zero,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
           message: 'Added To Favourite'.toUpperCase(),
         ));
   } else {
     favouriteSongsList.removeWhere((song) => fvrtmusic.id == song.id);
     await librarybox.put('Favourites', favouriteSongsList);
+    BlocProvider.of<FavouritesBloc>(context).add(const Listchanging());
 
     showTopSnackBar(
         context,
         CustomSnackBar.error(
             textScaleFactor: 0.8,
             iconPositionLeft: 2,
-            backgroundColor: Color.fromARGB(255, 24, 24, 33),
+            backgroundColor: const Color.fromARGB(255, 24, 24, 33),
             messagePadding: EdgeInsets.zero,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
+            borderRadius: const BorderRadius.all(Radius.circular(15)),
             message: 'Removed From Favourite'.toUpperCase()));
   }
 }
