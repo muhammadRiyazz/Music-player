@@ -44,6 +44,7 @@ class _SplashState extends State<Splash> {
     putfavouritelist();
     putrecentlist();
     putmostplayedlist();
+    log('git error test');
   }
 
   Future setboolvalue() async {
