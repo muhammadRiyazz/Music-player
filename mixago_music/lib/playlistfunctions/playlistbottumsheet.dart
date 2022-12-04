@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 import 'package:mixago_music/library%20add%20functions/addfavourite.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
@@ -155,6 +157,7 @@ songremove(
   log('selected song id checkkkk');
   Playlistsongs.removeWhere((element) => element.id == id);
   await playlistbox.put(key, Playlistsongs);
+  BlocProvider.of<PlaylistBloc>(context).add(const Playlists());
 
   log(Playlistsongs.length.toString());
   // ignore: use_build_context_synchronously

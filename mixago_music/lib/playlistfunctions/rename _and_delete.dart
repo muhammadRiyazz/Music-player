@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 
 import '../modals/Musics.dart';
 import '../modals/database_function.dart';
@@ -74,7 +76,8 @@ playlistsbottansheet({required BuildContext context, required String key}) {
                               onPressed: () {
                                 playlistrename(
                                     key: key,
-                                    textcntrol: renameplaylistcontroll);
+                                    textcntrol: renameplaylistcontroll,
+                                    context: context);
                                 Navigator.pop(context);
                               },
                               child: const Text('Save'),
@@ -166,9 +169,10 @@ Widget renametextfeald(
   );
 }
 
-deleteplaylist({required String key}) {
+deleteplaylist({required String key, required BuildContext context}) {
   Box<List> playlisthivebox = getplaylistbox();
   playlisthivebox.delete(key);
+  BlocProvider.of<PlaylistBloc>(context).add(const Playlists());
 
   log('Delete');
   log(playlisthivebox.length.toString());
@@ -216,13 +220,13 @@ deleteplaylistalert({required String key, required BuildContext context}) {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              deleteplaylist(key: key);
+                              deleteplaylist(key: key, context: context);
                               Navigator.pop(context);
                             },
                             child: const GlassContainer(
@@ -244,23 +248,18 @@ deleteplaylistalert({required String key, required BuildContext context}) {
 }
 
 playlistrename(
-    {required String key, required TextEditingController textcntrol}) {
+    {required String key,
+    required TextEditingController textcntrol,
+    required BuildContext context}) {
   String renamenewtext = textcntrol.text;
-
   Box<List> playlisthivebox = getplaylistbox();
-
   final List<Musics> Playlistsongs =
       playlisthivebox.get(key)!.toList().cast<Musics>();
-
   log('new rename');
-
   List<Musics> renameplaylistsong = Playlistsongs;
-
   playlisthivebox.delete(key);
-
   log('new rename');
-
   playlisthivebox.put(renamenewtext, renameplaylistsong);
-
+  BlocProvider.of<PlaylistBloc>(context).add(const Playlists());
   log('new rename');
 }

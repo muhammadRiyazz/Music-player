@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 import 'package:mixago_music/modals/database_function.dart';
 
 ceateplaylistalert(
@@ -97,7 +99,8 @@ ceateplaylistalert(
                             onTap: () {
                               createplaylist(
                                   createplaylistcontroller:
-                                      createplaylistcontroller);
+                                      createplaylistcontroller,
+                                  context: context);
                               Navigator.pop(context);
                             },
                             child: const GlassContainer(
@@ -119,12 +122,14 @@ ceateplaylistalert(
 }
 
 createplaylist(
-    {required TextEditingController createplaylistcontroller}) async {
+    {required TextEditingController createplaylistcontroller,
+    required BuildContext context}) async {
   Box<List> playlisthivebox = getplaylistbox();
   final myplaylistname = createplaylistcontroller.text;
 
   log(myplaylistname.toString());
   await playlisthivebox.put(myplaylistname, []);
+  BlocProvider.of<PlaylistBloc>(context).add(Playlists());
   log(playlisthivebox.length.toString());
   createplaylistcontroller.clear();
 }

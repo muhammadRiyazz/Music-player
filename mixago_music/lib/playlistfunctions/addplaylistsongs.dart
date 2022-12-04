@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
 
@@ -65,71 +67,69 @@ addsongplaylist({required BuildContext ctxt, required String keys}) {
                     const SizedBox(
                       height: 7,
                     ),
-                    ValueListenableBuilder(
-                      valueListenable: playlistbox.listenable(),
-                      builder: (BuildContext context, Box<List> value,
-                          Widget? child) {
-                        return Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: (mysongslist.isEmpty)
-                                ? const Center(
-                                    child: Text('No Songs'),
-                                  )
-                                : ListView.builder(
-                                    itemCount: mysongslist.length,
-                                    itemBuilder: (context, index) {
-                                      return ListTile(
-                                          onTap: () {
-                                            myminiplayer(
-                                                context: context,
-                                                myAudiolist: mysongslist,
-                                                index: index);
-                                          },
-                                          contentPadding: EdgeInsets.zero,
-                                          leading: SizedBox(
-                                            height: 55,
-                                            width: 55,
-                                            child: QueryArtworkWidget(
-                                              artworkBorder:
-                                                  BorderRadius.circular(13),
-                                              id: int.parse(
-                                                  mysongslist[index].id),
-                                              type: ArtworkType.AUDIO,
-                                              nullArtworkWidget: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                                child: Image.asset(
-                                                  'asset/img/music.jpg',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
+                    // ValueListenableBuilder(
+                    //   valueListenable: playlistbox.listenable(),
+                    //   builder: (BuildContext context, Box<List> value,
+                    //       Widget? child) {
+                    //     return
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: (mysongslist.isEmpty)
+                            ? const Center(
+                                child: Text('No Songs'),
+                              )
+                            : ListView.builder(
+                                itemCount: mysongslist.length,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                      onTap: () {
+                                        myminiplayer(
+                                            context: context,
+                                            myAudiolist: mysongslist,
+                                            index: index);
+                                      },
+                                      contentPadding: EdgeInsets.zero,
+                                      leading: SizedBox(
+                                        height: 55,
+                                        width: 55,
+                                        child: QueryArtworkWidget(
+                                          artworkBorder:
+                                              BorderRadius.circular(13),
+                                          id: int.parse(mysongslist[index].id),
+                                          type: ArtworkType.AUDIO,
+                                          nullArtworkWidget: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                            child: Image.asset(
+                                              'asset/img/music.jpg',
+                                              fit: BoxFit.cover,
                                             ),
                                           ),
-                                          title: Text(
-                                            mysongslist[index].title,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              color: Colors.grey,
-                                            ),
-                                          ),
-                                          subtitle: Text(
-                                            mysongslist[index].artist,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              color: Colors.grey.shade700,
-                                            ),
-                                          ),
-                                          trailing: iconchange(
-                                            keys: keys,
-                                            id: mysongslist[index].id,
-                                            context: ctxt,
-                                          ));
-                                    },
-                                  ),
-                          ),
-                        );
-                      },
+                                        ),
+                                      ),
+                                      title: Text(
+                                        mysongslist[index].title,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        mysongslist[index].artist,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          color: Colors.grey.shade700,
+                                        ),
+                                      ),
+                                      trailing: iconchange(
+                                        keys: keys,
+                                        id: mysongslist[index].id,
+                                        context: ctxt,
+                                      ));
+                                },
+                              ),
+                      ),
                     ),
                   ],
                 ),
@@ -181,6 +181,8 @@ songaddtoplaylist(
     Playlistsongs.add(selectedsong);
 
     await playlistbox.put(keys, Playlistsongs);
+    BlocProvider.of<PlaylistBloc>(context).add(Playlists());
+    log('sonhhhhhh');
 
     // ignore: use_build_context_synchronously
     showTopSnackBar(
@@ -195,6 +197,9 @@ songaddtoplaylist(
   } else {
     Playlistsongs.removeWhere((element) => element.id == id);
     await playlistbox.put(keys, Playlistsongs);
+    BlocProvider.of<PlaylistBloc>(context).add(Playlists());
+    log('bloc  last song');
+
     // ignore: use_build_context_synchronously
     showTopSnackBar(
         context,

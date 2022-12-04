@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -25,6 +27,7 @@ addtoplaylist(
       .isEmpty) {
     currendplaylistsongs.add(selectedsong);
     playlisthivebox.put(key, currendplaylistsongs);
+    BlocProvider.of<PlaylistBloc>(context).add(const Playlists());
 
     log('add song to playlist');
     showTopSnackBar(
