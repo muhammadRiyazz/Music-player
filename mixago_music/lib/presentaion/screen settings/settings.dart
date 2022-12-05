@@ -1,16 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:mixago_music/presentaion/screen%20settings/page_licenses/licenses.dart';
 import 'package:mixago_music/presentaion/screen%20settings/page_privecy_policy/privecy_policy.dart';
 import 'package:mixago_music/presentaion/screen%20settings/page_terms_conditions/tems_conditions.dart';
-import 'package:mixago_music/screens/splash.dart';
-import 'package:mixago_music/screens/termsandcoundition.dart';
+import 'package:mixago_music/presentaion/screen%20splash/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'privecyandpolicy.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});

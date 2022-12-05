@@ -1,15 +1,10 @@
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/Appilcations/bloc%20file/bloc/loop_and_shuffle_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
-
-import 'package:mixago_music/lyrics/lyricsbottumsheet.dart';
-import 'package:mixago_music/lyrics/lyricsget.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/loop%20and%20shuffle/loop_and_shuffle_bloc.dart';
 import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/presentaion/screen%20now%20playing/layrics_sheet/layrics.dart';

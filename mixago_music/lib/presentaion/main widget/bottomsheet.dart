@@ -1,21 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/library%20add%20functions/addfavourite.dart';
 import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:mixago_music/presentaion/screen%20playlist/playlistpage.dart';
 
-import 'package:mixago_music/screens/playlistpage.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../Appilcations/bloc file/favourites/favourites_bloc.dart';
 import '../../modals/database_function.dart';

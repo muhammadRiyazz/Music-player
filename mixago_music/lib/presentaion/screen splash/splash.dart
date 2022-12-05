@@ -1,50 +1,37 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/modals/database_function.dart';
 import 'package:mixago_music/presentaion/screen%20home/screen_home.dart';
-
-import 'package:mixago_music/screens/homescreen.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../modals/database_function.dart';
-
 bool? notificationvalue;
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+class Splash extends StatelessWidget {
+  Splash({super.key});
 
-  @override
-  State<Splash> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
   final myonAudioquery = OnAudioQuery();
+
   List<SongModel> fetchedintenalsongs = [];
+
   Box<Musics> musicsBox = getsongsmodalbox();
+
   Box<List> librarybox = getlibrarybox();
+
   List<SongModel> fetchedSongs = [];
 
-  @override
-  void initState() {
-    super.initState();
+  void newinitState({required BuildContext context}) {
+    fetchinternalsongs(context: context);
 
-    fetchinternalsongs();
-
-    // changehivemodaltollist();
     putfavouritelist();
     putrecentlist();
     putmostplayedlist();
-    log('git error test');
   }
 
   Future setboolvalue() async {
@@ -58,7 +45,7 @@ class _SplashState extends State<Splash> {
     log('permision');
   }
 
-  Future fetchinternalsongs() async {
+  Future fetchinternalsongs({required BuildContext context}) async {
     await storagepermision();
     await setboolvalue();
     fetchedintenalsongs = await myonAudioquery.querySongs(
@@ -66,10 +53,9 @@ class _SplashState extends State<Splash> {
         uriType: UriType.EXTERNAL,
         orderType: OrderType.ASC_OR_SMALLER,
         sortType: SongSortType.DISPLAY_NAME);
-    log('fetch');
     await tomp3();
     await tohivebox();
-    await tohomescreen();
+    await tohomescreen(context: context);
   }
 
   tomp3() async {
@@ -114,7 +100,7 @@ class _SplashState extends State<Splash> {
     }
   }
 
-  tohomescreen() async {
+  tohomescreen({required BuildContext context}) async {
     List<Musics> mysongslist = await musicsBox.values.toList();
     log('to list');
     await Future.delayed(const Duration(seconds: 6));
@@ -128,6 +114,7 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    newinitState(context: context);
     return Scaffold(
       body: Container(
         color: const Color.fromARGB(255, 0, 0, 0),
