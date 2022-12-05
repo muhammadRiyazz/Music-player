@@ -24,6 +24,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       emit(SearchState(
         songlist: searchmusic,
+
         // textfieldbool: true,
         // librarybool: false,
       ));

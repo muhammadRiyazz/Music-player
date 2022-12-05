@@ -4,11 +4,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/Search/search_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlistsong/playlistsong_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/recent/recent_bloc.dart';
 import 'package:mixago_music/modals/profilemodal.dart';
 
 import 'package:mixago_music/screens/splash.dart';
 
+import 'Appilcations/bloc file/bloc/loop_and_shuffle_bloc.dart';
 import 'Appilcations/bloc file/mostplay/mostplay_bloc.dart';
 import 'modals/Musics.dart';
 
@@ -51,6 +53,12 @@ class _MixagoState extends State<Mixago> {
         ),
         BlocProvider(
           create: (context) => PlaylistBloc(),
+        ),
+        BlocProvider(
+          create: (context) => PlaylistsongBloc(),
+        ),
+        BlocProvider(
+          create: (context) => LoopAndShuffleBloc(),
         ),
       ],
       child: MaterialApp(

@@ -1,20 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
 import 'package:mixago_music/library%20add%20functions/addfavourite.dart';
 import 'package:mixago_music/modals/Musics.dart';
-
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../modals/database_function.dart';
+import '../Appilcations/bloc file/playlistsong/playlistsong_bloc.dart';
 
 bottansheetinplaylistlisttile(
     {required BuildContext cxt,
@@ -86,8 +81,12 @@ bottansheetinplaylistlisttile(
                   ),
                   ListTile(
                     onTap: () {
-                      songremove(
-                          id: myaudiolist[index].id, key: key, context: cxt);
+                      BlocProvider.of<PlaylistsongBloc>(context).add(
+                          blocsongremove(
+                              id: myaudiolist[index].id,
+                              listkey: key,
+                              context: context));
+
                       Navigator.pop(context);
                     },
                     iconColor: Colors.grey,
@@ -97,12 +96,30 @@ bottansheetinplaylistlisttile(
                     ),
                     leading: const Icon(Icons.playlist_remove),
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: librarybox.listenable(),
-                    builder:
-                        (BuildContext context, Box<List> value, Widget? child) {
-                      return textfvrtaddremove(
-                          id: myaudiolist[index].id, snakctxt: context);
+                  BlocBuilder<FavouritesBloc, FavouritesState>(
+                    builder: (context, state) {
+                      BlocProvider.of<FavouritesBloc>(context).add(Iconchange(
+                        id: myaudiolist[index].id,
+                      ));
+
+                      return ListTile(
+                        onTap: () {
+                          BlocProvider.of<FavouritesBloc>(context).add(
+                              Listchanging(
+                                  id: myaudiolist[index].id, context: context));
+                          BlocProvider.of<FavouritesBloc>(context)
+                              .add(Iconchange(
+                            id: myaudiolist[index].id,
+                          ));
+                          Navigator.pop(context);
+                        },
+                        iconColor: Colors.grey,
+                        textColor: Colors.grey,
+                        title: Text(
+                          state.text,
+                        ),
+                        leading: state.icon,
+                      );
                     },
                   ),
                   ListTile(
@@ -135,41 +152,4 @@ bottansheetinplaylistlisttile(
           ]),
         );
       });
-}
-
-songremove(
-    {required String id,
-    required String key,
-    required BuildContext context}) async {
-  log('call function');
-  Box<Musics> allsongbox = getsongsmodalbox();
-  Box<List> playlistbox = getplaylistbox();
-
-  // List keysList = playlistbox.keys.toList();
-
-  List<Musics> allsongslist = allsongbox.values.toList();
-
-  final List<Musics> Playlistsongs =
-      playlistbox.get(key)!.toList().cast<Musics>();
-  log(Playlistsongs.length.toString());
-  log('playlist to list');
-
-  log('selected song id checkkkk');
-  Playlistsongs.removeWhere((element) => element.id == id);
-  await playlistbox.put(key, Playlistsongs);
-  BlocProvider.of<PlaylistBloc>(context).add(const Playlists());
-
-  log(Playlistsongs.length.toString());
-  // ignore: use_build_context_synchronously
-  showTopSnackBar(
-      context,
-      CustomSnackBar.error(
-          iconPositionLeft: 1,
-          textScaleFactor: 0.8,
-          backgroundColor: Color.fromARGB(255, 24, 24, 33),
-          messagePadding: EdgeInsets.zero,
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          message: 'REMOVED FROM $key'.toUpperCase()));
-
-  log('remove');
 }

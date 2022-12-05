@@ -34,15 +34,7 @@ class Favorite extends StatelessWidget {
         ),
         padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
         //color: Colors.black,
-        child:
-            // ValueListenableBuilder(
-            //   valueListenable: librarybox.listenable(),
-            //   builder: (BuildContext context, Box<List> value, Widget? child) {
-            //     Box<List> librarybox = getlibrarybox();
-            //     final List<Musics> favouriteSongsList =
-            //         librarybox.get('Favourites')!.toList().cast<Musics>();
-
-            BlocBuilder<FavouritesBloc, FavouritesState>(
+        child: BlocBuilder<FavouritesBloc, FavouritesState>(
           builder: (context, state) {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,

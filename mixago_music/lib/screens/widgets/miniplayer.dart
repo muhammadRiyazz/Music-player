@@ -7,16 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:mixago_music/modals/Musics.dart';
-import 'package:mixago_music/screens/nowplaying.dart';
+import 'package:mixago_music/presentaion/screen%20now%20playing/now_playing.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 myminiplayer(
     {required BuildContext context,
     required List<Musics> myAudiolist,
     required int index}) {
-  log('miniplayer');
-  //final myonAudioquery = OnAudioQuery();
-  // Size size = MediaQuery.of(context).size;
   return showBottomSheet(
     backgroundColor: const Color.fromARGB(0, 0, 0, 0),
     context: context,
@@ -56,7 +53,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
   }
 
   void convertsong() {
-    log('miniplayer convert');
     for (var song in widget.myAudiolist) {
       Audio myAudio = Audio.file(
         song.url,
@@ -72,7 +68,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
   }
 
   setplay() {
-    log('miniplayer set play');
     mymusicplayer.open(
       Playlist(audios: mySongs, startIndex: widget.index),
       loopMode: LoopMode.playlist,
@@ -84,7 +79,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
   final myonAudioquery = OnAudioQuery();
   @override
   Widget build(BuildContext context) {
-    log('miniplayer buld');
     Size size = MediaQuery.of(context).size;
     return mymusicplayer.builderCurrent(
       builder: (context, playing) {
@@ -96,8 +90,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
             itemCount: widget.myAudiolist.length,
             controller: myswipercontroller,
             itemBuilder: (context, index) {
-              log('swiper   12');
-
               return Container(
                 color: Colors.grey.withOpacity(0),
                 child: Stack(
@@ -128,7 +120,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                               );
                             },
                             child: GlassContainer(
-                              color: Color.fromARGB(246, 11, 3, 29)
+                              color: const Color.fromARGB(246, 11, 3, 29)
                                   .withOpacity(0.4),
                               blur: 9,
                               height: 77,
@@ -138,7 +130,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                   return Column(
                                     children: [
                                       ListTile(
-                                        //contentPadding: EdgeInsets.zero,
                                         leading: SizedBox(
                                           width: size.width * 0.17,
                                         ),
@@ -231,7 +222,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                             thumbGlowRadius: 0,
                                             timeLabelType:
                                                 TimeLabelType.totalTime,
-                                            //thumbCanPaintOutsideBar: true,
                                             thumbColor: const Color.fromARGB(
                                                 255, 1, 104, 155),
                                             thumbRadius: 0,
@@ -255,7 +245,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
                       ],
                     ),
                     Positioned(
-                        // right: size.width * 0.80,
                         top: 10,
                         left: size.width * 0.06,
                         child: GestureDetector(
@@ -298,7 +287,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
                 ),
               );
             },
-            // ignore: non_constant_identifier_names
             onIndexChanged: (Intex) {
               mymusicplayer.next();
             },

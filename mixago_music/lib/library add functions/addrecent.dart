@@ -17,7 +17,6 @@ addrecent({required String id, required BuildContext context}) async {
   List<Musics> recentsonglist =
       alllibrary.get('recent Played')!.toList().cast<Musics>();
 
-  log(recentsonglist.length.toString());
   final selectedsong = allsonglist.firstWhere((song) => song.id.contains(id));
   int? mostcount = selectedsong.count;
   selectedsong.count = (mostcount! + 1);
@@ -32,14 +31,11 @@ addrecent({required String id, required BuildContext context}) async {
 
   if (recentsonglist.where((song) => song.id == selectedsong.id).isEmpty) {
     recentsonglist.insert(0, selectedsong);
-    log(recentsonglist.length.toString());
     await alllibrary.put('recent Played', recentsonglist);
     BlocProvider.of<RecentBloc>(context).add(const Recentlistchanging());
   } else {
     recentsonglist.removeWhere((song) => selectedsong.id == song.id);
-    log(recentsonglist.length.toString());
     recentsonglist.insert(0, selectedsong);
-    log(recentsonglist.length.toString());
     await alllibrary.put('recent Played', recentsonglist);
     BlocProvider.of<RecentBloc>(context).add(const Recentlistchanging());
   }

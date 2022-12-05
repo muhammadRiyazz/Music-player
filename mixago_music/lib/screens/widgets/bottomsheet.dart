@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/library%20add%20functions/addfavourite.dart';
 import 'package:mixago_music/modals/Musics.dart';
@@ -16,6 +17,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../../Appilcations/bloc file/favourites/favourites_bloc.dart';
 import '../../modals/database_function.dart';
 
 bottansheet(
@@ -97,12 +99,29 @@ bottansheet(
                     ),
                     leading: const Icon(Icons.playlist_add),
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: librarybox.listenable(),
-                    builder:
-                        (BuildContext context, Box<List> value, Widget? child) {
-                      return textfvrtaddremove(
-                          id: myaudiolist[index].id, snakctxt: context);
+                  BlocBuilder<FavouritesBloc, FavouritesState>(
+                    builder: (context, state) {
+                      BlocProvider.of<FavouritesBloc>(context).add(Iconchange(
+                        id: myaudiolist[index].id,
+                      ));
+                      return ListTile(
+                        onTap: () {
+                          BlocProvider.of<FavouritesBloc>(context).add(
+                              Listchanging(
+                                  id: myaudiolist[index].id, context: context));
+                          BlocProvider.of<FavouritesBloc>(context)
+                              .add(Iconchange(
+                            id: myaudiolist[index].id,
+                          ));
+                          Navigator.pop(context);
+                        },
+                        iconColor: Colors.grey,
+                        textColor: Colors.grey,
+                        title: Text(
+                          state.text,
+                        ),
+                        leading: state.icon,
+                      );
                     },
                   ),
                   ListTile(

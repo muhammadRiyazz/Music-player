@@ -18,33 +18,54 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlaylistEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() playlists,
+    required TResult Function() initialplaylists,
+    required TResult Function(TextEditingController textcntrol) createplaylists,
+    required TResult Function(TextEditingController textcntrol, String key)
+        renameplaylists,
+    required TResult Function(String key) deleteplaylists,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? playlists,
+    TResult? Function()? initialplaylists,
+    TResult? Function(TextEditingController textcntrol)? createplaylists,
+    TResult? Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult? Function(String key)? deleteplaylists,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? playlists,
+    TResult Function()? initialplaylists,
+    TResult Function(TextEditingController textcntrol)? createplaylists,
+    TResult Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult Function(String key)? deleteplaylists,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Playlists value) playlists,
+    required TResult Function(Initialplaylists value) initialplaylists,
+    required TResult Function(Createplaylists value) createplaylists,
+    required TResult Function(Renameplaylists value) renameplaylists,
+    required TResult Function(Deleteplaylists value) deleteplaylists,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Playlists value)? playlists,
+    TResult? Function(Initialplaylists value)? initialplaylists,
+    TResult? Function(Createplaylists value)? createplaylists,
+    TResult? Function(Renameplaylists value)? renameplaylists,
+    TResult? Function(Deleteplaylists value)? deleteplaylists,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Playlists value)? playlists,
+    TResult Function(Initialplaylists value)? initialplaylists,
+    TResult Function(Createplaylists value)? createplaylists,
+    TResult Function(Renameplaylists value)? renameplaylists,
+    TResult Function(Deleteplaylists value)? deleteplaylists,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -69,35 +90,35 @@ class _$PlaylistEventCopyWithImpl<$Res, $Val extends PlaylistEvent>
 }
 
 /// @nodoc
-abstract class _$$PlaylistsCopyWith<$Res> {
-  factory _$$PlaylistsCopyWith(
-          _$Playlists value, $Res Function(_$Playlists) then) =
-      __$$PlaylistsCopyWithImpl<$Res>;
+abstract class _$$InitialplaylistsCopyWith<$Res> {
+  factory _$$InitialplaylistsCopyWith(
+          _$Initialplaylists value, $Res Function(_$Initialplaylists) then) =
+      __$$InitialplaylistsCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$PlaylistsCopyWithImpl<$Res>
-    extends _$PlaylistEventCopyWithImpl<$Res, _$Playlists>
-    implements _$$PlaylistsCopyWith<$Res> {
-  __$$PlaylistsCopyWithImpl(
-      _$Playlists _value, $Res Function(_$Playlists) _then)
+class __$$InitialplaylistsCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res, _$Initialplaylists>
+    implements _$$InitialplaylistsCopyWith<$Res> {
+  __$$InitialplaylistsCopyWithImpl(
+      _$Initialplaylists _value, $Res Function(_$Initialplaylists) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$Playlists implements Playlists {
-  const _$Playlists();
+class _$Initialplaylists implements Initialplaylists {
+  const _$Initialplaylists();
 
   @override
   String toString() {
-    return 'PlaylistEvent.playlists()';
+    return 'PlaylistEvent.initialplaylists()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$Playlists);
+        (other.runtimeType == runtimeType && other is _$Initialplaylists);
   }
 
   @override
@@ -106,27 +127,39 @@ class _$Playlists implements Playlists {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() playlists,
+    required TResult Function() initialplaylists,
+    required TResult Function(TextEditingController textcntrol) createplaylists,
+    required TResult Function(TextEditingController textcntrol, String key)
+        renameplaylists,
+    required TResult Function(String key) deleteplaylists,
   }) {
-    return playlists();
+    return initialplaylists();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? playlists,
+    TResult? Function()? initialplaylists,
+    TResult? Function(TextEditingController textcntrol)? createplaylists,
+    TResult? Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult? Function(String key)? deleteplaylists,
   }) {
-    return playlists?.call();
+    return initialplaylists?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? playlists,
+    TResult Function()? initialplaylists,
+    TResult Function(TextEditingController textcntrol)? createplaylists,
+    TResult Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult Function(String key)? deleteplaylists,
     required TResult orElse(),
   }) {
-    if (playlists != null) {
-      return playlists();
+    if (initialplaylists != null) {
+      return initialplaylists();
     }
     return orElse();
   }
@@ -134,34 +167,502 @@ class _$Playlists implements Playlists {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Playlists value) playlists,
+    required TResult Function(Initialplaylists value) initialplaylists,
+    required TResult Function(Createplaylists value) createplaylists,
+    required TResult Function(Renameplaylists value) renameplaylists,
+    required TResult Function(Deleteplaylists value) deleteplaylists,
   }) {
-    return playlists(this);
+    return initialplaylists(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(Playlists value)? playlists,
+    TResult? Function(Initialplaylists value)? initialplaylists,
+    TResult? Function(Createplaylists value)? createplaylists,
+    TResult? Function(Renameplaylists value)? renameplaylists,
+    TResult? Function(Deleteplaylists value)? deleteplaylists,
   }) {
-    return playlists?.call(this);
+    return initialplaylists?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Playlists value)? playlists,
+    TResult Function(Initialplaylists value)? initialplaylists,
+    TResult Function(Createplaylists value)? createplaylists,
+    TResult Function(Renameplaylists value)? renameplaylists,
+    TResult Function(Deleteplaylists value)? deleteplaylists,
     required TResult orElse(),
   }) {
-    if (playlists != null) {
-      return playlists(this);
+    if (initialplaylists != null) {
+      return initialplaylists(this);
     }
     return orElse();
   }
 }
 
-abstract class Playlists implements PlaylistEvent {
-  const factory Playlists() = _$Playlists;
+abstract class Initialplaylists implements PlaylistEvent {
+  const factory Initialplaylists() = _$Initialplaylists;
+}
+
+/// @nodoc
+abstract class _$$CreateplaylistsCopyWith<$Res> {
+  factory _$$CreateplaylistsCopyWith(
+          _$Createplaylists value, $Res Function(_$Createplaylists) then) =
+      __$$CreateplaylistsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TextEditingController textcntrol});
+}
+
+/// @nodoc
+class __$$CreateplaylistsCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res, _$Createplaylists>
+    implements _$$CreateplaylistsCopyWith<$Res> {
+  __$$CreateplaylistsCopyWithImpl(
+      _$Createplaylists _value, $Res Function(_$Createplaylists) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? textcntrol = null,
+  }) {
+    return _then(_$Createplaylists(
+      textcntrol: null == textcntrol
+          ? _value.textcntrol
+          : textcntrol // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Createplaylists implements Createplaylists {
+  const _$Createplaylists({required this.textcntrol});
+
+  @override
+  final TextEditingController textcntrol;
+
+  @override
+  String toString() {
+    return 'PlaylistEvent.createplaylists(textcntrol: $textcntrol)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Createplaylists &&
+            (identical(other.textcntrol, textcntrol) ||
+                other.textcntrol == textcntrol));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, textcntrol);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CreateplaylistsCopyWith<_$Createplaylists> get copyWith =>
+      __$$CreateplaylistsCopyWithImpl<_$Createplaylists>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialplaylists,
+    required TResult Function(TextEditingController textcntrol) createplaylists,
+    required TResult Function(TextEditingController textcntrol, String key)
+        renameplaylists,
+    required TResult Function(String key) deleteplaylists,
+  }) {
+    return createplaylists(textcntrol);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialplaylists,
+    TResult? Function(TextEditingController textcntrol)? createplaylists,
+    TResult? Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult? Function(String key)? deleteplaylists,
+  }) {
+    return createplaylists?.call(textcntrol);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialplaylists,
+    TResult Function(TextEditingController textcntrol)? createplaylists,
+    TResult Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult Function(String key)? deleteplaylists,
+    required TResult orElse(),
+  }) {
+    if (createplaylists != null) {
+      return createplaylists(textcntrol);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initialplaylists value) initialplaylists,
+    required TResult Function(Createplaylists value) createplaylists,
+    required TResult Function(Renameplaylists value) renameplaylists,
+    required TResult Function(Deleteplaylists value) deleteplaylists,
+  }) {
+    return createplaylists(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initialplaylists value)? initialplaylists,
+    TResult? Function(Createplaylists value)? createplaylists,
+    TResult? Function(Renameplaylists value)? renameplaylists,
+    TResult? Function(Deleteplaylists value)? deleteplaylists,
+  }) {
+    return createplaylists?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initialplaylists value)? initialplaylists,
+    TResult Function(Createplaylists value)? createplaylists,
+    TResult Function(Renameplaylists value)? renameplaylists,
+    TResult Function(Deleteplaylists value)? deleteplaylists,
+    required TResult orElse(),
+  }) {
+    if (createplaylists != null) {
+      return createplaylists(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Createplaylists implements PlaylistEvent {
+  const factory Createplaylists(
+      {required final TextEditingController textcntrol}) = _$Createplaylists;
+
+  TextEditingController get textcntrol;
+  @JsonKey(ignore: true)
+  _$$CreateplaylistsCopyWith<_$Createplaylists> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RenameplaylistsCopyWith<$Res> {
+  factory _$$RenameplaylistsCopyWith(
+          _$Renameplaylists value, $Res Function(_$Renameplaylists) then) =
+      __$$RenameplaylistsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({TextEditingController textcntrol, String key});
+}
+
+/// @nodoc
+class __$$RenameplaylistsCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res, _$Renameplaylists>
+    implements _$$RenameplaylistsCopyWith<$Res> {
+  __$$RenameplaylistsCopyWithImpl(
+      _$Renameplaylists _value, $Res Function(_$Renameplaylists) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? textcntrol = null,
+    Object? key = null,
+  }) {
+    return _then(_$Renameplaylists(
+      textcntrol: null == textcntrol
+          ? _value.textcntrol
+          : textcntrol // ignore: cast_nullable_to_non_nullable
+              as TextEditingController,
+      key: null == key
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Renameplaylists implements Renameplaylists {
+  const _$Renameplaylists({required this.textcntrol, required this.key});
+
+  @override
+  final TextEditingController textcntrol;
+  @override
+  final String key;
+
+  @override
+  String toString() {
+    return 'PlaylistEvent.renameplaylists(textcntrol: $textcntrol, key: $key)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Renameplaylists &&
+            (identical(other.textcntrol, textcntrol) ||
+                other.textcntrol == textcntrol) &&
+            (identical(other.key, key) || other.key == key));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, textcntrol, key);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RenameplaylistsCopyWith<_$Renameplaylists> get copyWith =>
+      __$$RenameplaylistsCopyWithImpl<_$Renameplaylists>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialplaylists,
+    required TResult Function(TextEditingController textcntrol) createplaylists,
+    required TResult Function(TextEditingController textcntrol, String key)
+        renameplaylists,
+    required TResult Function(String key) deleteplaylists,
+  }) {
+    return renameplaylists(textcntrol, key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialplaylists,
+    TResult? Function(TextEditingController textcntrol)? createplaylists,
+    TResult? Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult? Function(String key)? deleteplaylists,
+  }) {
+    return renameplaylists?.call(textcntrol, key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialplaylists,
+    TResult Function(TextEditingController textcntrol)? createplaylists,
+    TResult Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult Function(String key)? deleteplaylists,
+    required TResult orElse(),
+  }) {
+    if (renameplaylists != null) {
+      return renameplaylists(textcntrol, key);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initialplaylists value) initialplaylists,
+    required TResult Function(Createplaylists value) createplaylists,
+    required TResult Function(Renameplaylists value) renameplaylists,
+    required TResult Function(Deleteplaylists value) deleteplaylists,
+  }) {
+    return renameplaylists(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initialplaylists value)? initialplaylists,
+    TResult? Function(Createplaylists value)? createplaylists,
+    TResult? Function(Renameplaylists value)? renameplaylists,
+    TResult? Function(Deleteplaylists value)? deleteplaylists,
+  }) {
+    return renameplaylists?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initialplaylists value)? initialplaylists,
+    TResult Function(Createplaylists value)? createplaylists,
+    TResult Function(Renameplaylists value)? renameplaylists,
+    TResult Function(Deleteplaylists value)? deleteplaylists,
+    required TResult orElse(),
+  }) {
+    if (renameplaylists != null) {
+      return renameplaylists(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Renameplaylists implements PlaylistEvent {
+  const factory Renameplaylists(
+      {required final TextEditingController textcntrol,
+      required final String key}) = _$Renameplaylists;
+
+  TextEditingController get textcntrol;
+  String get key;
+  @JsonKey(ignore: true)
+  _$$RenameplaylistsCopyWith<_$Renameplaylists> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteplaylistsCopyWith<$Res> {
+  factory _$$DeleteplaylistsCopyWith(
+          _$Deleteplaylists value, $Res Function(_$Deleteplaylists) then) =
+      __$$DeleteplaylistsCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String key});
+}
+
+/// @nodoc
+class __$$DeleteplaylistsCopyWithImpl<$Res>
+    extends _$PlaylistEventCopyWithImpl<$Res, _$Deleteplaylists>
+    implements _$$DeleteplaylistsCopyWith<$Res> {
+  __$$DeleteplaylistsCopyWithImpl(
+      _$Deleteplaylists _value, $Res Function(_$Deleteplaylists) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? key = null,
+  }) {
+    return _then(_$Deleteplaylists(
+      key: null == key
+          ? _value.key
+          : key // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$Deleteplaylists implements Deleteplaylists {
+  const _$Deleteplaylists({required this.key});
+
+  @override
+  final String key;
+
+  @override
+  String toString() {
+    return 'PlaylistEvent.deleteplaylists(key: $key)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$Deleteplaylists &&
+            (identical(other.key, key) || other.key == key));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, key);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteplaylistsCopyWith<_$Deleteplaylists> get copyWith =>
+      __$$DeleteplaylistsCopyWithImpl<_$Deleteplaylists>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialplaylists,
+    required TResult Function(TextEditingController textcntrol) createplaylists,
+    required TResult Function(TextEditingController textcntrol, String key)
+        renameplaylists,
+    required TResult Function(String key) deleteplaylists,
+  }) {
+    return deleteplaylists(key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialplaylists,
+    TResult? Function(TextEditingController textcntrol)? createplaylists,
+    TResult? Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult? Function(String key)? deleteplaylists,
+  }) {
+    return deleteplaylists?.call(key);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialplaylists,
+    TResult Function(TextEditingController textcntrol)? createplaylists,
+    TResult Function(TextEditingController textcntrol, String key)?
+        renameplaylists,
+    TResult Function(String key)? deleteplaylists,
+    required TResult orElse(),
+  }) {
+    if (deleteplaylists != null) {
+      return deleteplaylists(key);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Initialplaylists value) initialplaylists,
+    required TResult Function(Createplaylists value) createplaylists,
+    required TResult Function(Renameplaylists value) renameplaylists,
+    required TResult Function(Deleteplaylists value) deleteplaylists,
+  }) {
+    return deleteplaylists(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Initialplaylists value)? initialplaylists,
+    TResult? Function(Createplaylists value)? createplaylists,
+    TResult? Function(Renameplaylists value)? renameplaylists,
+    TResult? Function(Deleteplaylists value)? deleteplaylists,
+  }) {
+    return deleteplaylists?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Initialplaylists value)? initialplaylists,
+    TResult Function(Createplaylists value)? createplaylists,
+    TResult Function(Renameplaylists value)? renameplaylists,
+    TResult Function(Deleteplaylists value)? deleteplaylists,
+    required TResult orElse(),
+  }) {
+    if (deleteplaylists != null) {
+      return deleteplaylists(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Deleteplaylists implements PlaylistEvent {
+  const factory Deleteplaylists({required final String key}) =
+      _$Deleteplaylists;
+
+  String get key;
+  @JsonKey(ignore: true)
+  _$$DeleteplaylistsCopyWith<_$Deleteplaylists> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc

@@ -1,11 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
-import 'package:mixago_music/modals/database_function.dart';
 
 ceateplaylistalert(
     {required BuildContext context,
@@ -91,16 +87,15 @@ ceateplaylistalert(
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 5,
                         ),
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              createplaylist(
-                                  createplaylistcontroller:
-                                      createplaylistcontroller,
-                                  context: context);
+                              BlocProvider.of<PlaylistBloc>(context).add(
+                                  Createplaylists(
+                                      textcntrol: createplaylistcontroller));
                               Navigator.pop(context);
                             },
                             child: const GlassContainer(
@@ -119,17 +114,4 @@ ceateplaylistalert(
               ),
             ));
       });
-}
-
-createplaylist(
-    {required TextEditingController createplaylistcontroller,
-    required BuildContext context}) async {
-  Box<List> playlisthivebox = getplaylistbox();
-  final myplaylistname = createplaylistcontroller.text;
-
-  log(myplaylistname.toString());
-  await playlisthivebox.put(myplaylistname, []);
-  BlocProvider.of<PlaylistBloc>(context).add(Playlists());
-  log(playlisthivebox.length.toString());
-  createplaylistcontroller.clear();
 }

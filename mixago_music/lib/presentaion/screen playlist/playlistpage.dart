@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
-import 'package:mixago_music/library%20add%20functions/addrecent.dart';
-import 'package:mixago_music/modals/Musics.dart';
-import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/playlistsong/playlistsong_bloc.dart';
 import 'package:mixago_music/playlistfunctions/addplaylistsongs.dart';
-import 'package:mixago_music/playlistfunctions/addsong%20in%20bottunsheet.dart';
-
 import 'package:mixago_music/playlistfunctions/rename%20_and_delete.dart';
 import 'package:mixago_music/presentaion/screen%20playlist/widgets/song_list.dart';
-
 import 'widgets/createplaylist.dart';
 
 class plalistpage extends StatefulWidget {
@@ -32,6 +25,7 @@ class _plalistpageState extends State<plalistpage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    BlocProvider.of<PlaylistBloc>(context).add(const Initialplaylists());
 
     return Scaffold(
       appBar: AppBar(
@@ -42,37 +36,37 @@ class _plalistpageState extends State<plalistpage> {
           style: TextStyle(color: Colors.grey.shade300),
         ),
       ),
-      body: BlocBuilder<PlaylistBloc, PlaylistState>(
-        builder: (context, state) {
-          return Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 26, 12, 38),
-                  Color.fromARGB(255, 0, 0, 0)
-                ],
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                stops: [0.2, 0.8],
-                tileMode: TileMode.repeated,
-              ),
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: size.height * 0.02),
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 26, 12, 38),
+              Color.fromARGB(255, 0, 0, 0)
+            ],
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            stops: [0.2, 0.8],
+            tileMode: TileMode.repeated,
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Createplaylist(
+              createplaylistcontroller: createplaylistcontroller,
+              size: size,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Createplaylist(
-                  createplaylistcontroller: createplaylistcontroller,
-                  size: size,
-                ),
-                SizedBox(
-                  height: size.height * 0.015,
-                ),
-                SizedBox(
-                  height: size.height * 0.14,
-                  //  color: Colors.blue,
-                  child: ListView.separated(
+            SizedBox(
+              height: size.height * 0.015,
+            ),
+            SizedBox(
+              height: size.height * 0.14,
+              //  color: Colors.blue,
+              child: BlocBuilder<PlaylistBloc, PlaylistState>(
+                builder: (context, state) {
+                  return ListView.separated(
                     scrollDirection: Axis.horizontal,
                     separatorBuilder: (context, index) {
                       return SizedBox(
@@ -81,19 +75,15 @@ class _plalistpageState extends State<plalistpage> {
                     },
                     itemCount: state.playlist.length,
                     itemBuilder: (context, index) {
-                      Box<List> playlistbox = getplaylistbox();
-                      final List<Musics> Playlistsongs = playlistbox
-                          .get(state.playlist[index])!
-                          .toList()
-                          .cast<Musics>();
-
                       return GestureDetector(
                         onTap: () {
                           if (widget.id != null) {
-                            addtoplaylist(
-                                context: context,
-                                id: widget.id.toString(),
-                                key: state.playlist[index]);
+                            BlocProvider.of<PlaylistsongBloc>(context)
+                                .add(Songadd(
+                              id: widget.id.toString(),
+                              listkey: state.playlist[index],
+                              context: context,
+                            ));
 
                             Navigator.pop(context);
                           }
@@ -112,7 +102,6 @@ class _plalistpageState extends State<plalistpage> {
                                 stops: [0.2, 0.8],
                                 tileMode: TileMode.repeated,
                               ),
-                              //  color: Colors.amber,
                               borderRadius: BorderRadius.circular(8)),
                           width: size.width * 0.50,
                           child: Row(
@@ -140,11 +129,16 @@ class _plalistpageState extends State<plalistpage> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8),
-                                      child: Text(
-                                        '${Playlistsongs.length} Songs',
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey.shade700),
+                                      child: BlocBuilder<PlaylistsongBloc,
+                                          PlaylistsongState>(
+                                        builder: (context, state) {
+                                          return Text(
+                                            '${state.musiclist.length} Songs',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey.shade700),
+                                          );
+                                        },
                                       ),
                                     )
                                   ]),
@@ -174,13 +168,13 @@ class _plalistpageState extends State<plalistpage> {
                         ),
                       );
                     },
-                  ),
-                ),
-                PageViewsongs(),
-              ],
+                  );
+                },
+              ),
             ),
-          );
-        },
+            PageViewsongs(),
+          ],
+        ),
       ),
     );
   }
@@ -206,11 +200,6 @@ class _plalistpageState extends State<plalistpage> {
                   controller: mycontroller,
                   itemCount: state.playlist.length,
                   itemBuilder: (context, keyindex) {
-                    Box<List> playlistbox = getplaylistbox();
-                    final List<Musics> Playlistsongs = playlistbox
-                        .get(state.playlist[keyindex])!
-                        .toList()
-                        .cast<Musics>();
                     return Column(
                       children: [
                         Padding(
@@ -227,13 +216,18 @@ class _plalistpageState extends State<plalistpage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Center(
-                              child: Text(
-                                '${Playlistsongs.length.toString()} SONGS',
-                                style: TextStyle(
-                                  color: Colors.grey.shade500,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: size.width * 0.034,
-                                ),
+                              child: BlocBuilder<PlaylistsongBloc,
+                                  PlaylistsongState>(
+                                builder: (context, state) {
+                                  return Text(
+                                    '${state.musiclist.length} SONGS',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade500,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: size.width * 0.034,
+                                    ),
+                                  );
+                                },
                               ),
                             ),
                             IconButton(
@@ -251,7 +245,6 @@ class _plalistpageState extends State<plalistpage> {
                           ],
                         ),
                         listview(
-                          Playlistsongs: Playlistsongs,
                           size: size,
                           playlistkeys: state.playlist,
                           keyindex: keyindex,
