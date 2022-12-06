@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,6 +92,7 @@ class NowPlaying extends StatelessWidget {
                 icon: PlayerBuilder.isPlaying(
                     player: audioPlayer,
                     builder: (context, isPlaying) {
+                      log('gvd');
                       return Icon(isPlaying
                           ? Icons.pause_circle_outline
                           : Icons.play_circle_outline_rounded);
