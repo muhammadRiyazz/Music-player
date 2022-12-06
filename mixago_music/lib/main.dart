@@ -12,6 +12,8 @@ import 'package:mixago_music/presentaion/screen%20splash/splash.dart';
 import 'Appilcations/bloc file/mostplay/mostplay_bloc.dart';
 import 'modals/Musics.dart';
 
+//bloc
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
