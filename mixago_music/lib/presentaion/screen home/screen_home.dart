@@ -1,34 +1,32 @@
+import 'dart:developer';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/Search/search_bloc.dart';
-import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/searchbutton/searchbutton_bloc.dart';
+
 import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/main%20widget/songlist.dart';
 import 'package:mixago_music/presentaion/screen%20home/drawer/drawer.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/Song_count.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/visible_part.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   final List<Musics> myAudiolist;
-  const HomeScreen({
+   HomeScreen({
     super.key,
     required this.myAudiolist,
   });
 
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
   final searchcontroller = TextEditingController();
-  AssetsAudioPlayer mymusicplayer = AssetsAudioPlayer.withId('0');
-  late List<Musics> searchmusic = List.from(widget.myAudiolist);
 
-  var textfealdvisible = false;
-  var libraryvsible = true;
+  //AssetsAudioPlayer mymusicplayer = AssetsAudioPlayer.withId('0');
+
+  //late List<Musics> searchmusic = List.from(myAudiolist);
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
                 onPressed: () {
-                  setState(
-                    () {
-                      if (textfealdvisible == false && libraryvsible == true) {
-                        textfealdvisible = true;
-                        libraryvsible = false;
-                      } else {
-                        textfealdvisible = false;
-                        libraryvsible = true;
-                      }
-                    },
-                  );
+                
+                  BlocProvider.of<SearchbuttonBloc>(context)
+                      .add(const Changebool());
+                  log('button');
                 },
                 icon: Icon(
                   Icons.search,
@@ -104,11 +95,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.only(bottom: 10),
                   ),
                   TextField(
-                    textfealdvisible: textfealdvisible,
+                   
                     searchcontroller: searchcontroller,
                   ),
                   VisibilityPart(
-                    libraryvsible: libraryvsible,
+                  
                     size: size,
                     favouriteSongsList: favouriteSongsList,
                     mostlayedsonglist: mostlayedsonglist,
@@ -140,40 +131,45 @@ class _HomeScreenState extends State<HomeScreen> {
 class TextField extends StatelessWidget {
   const TextField({
     Key? key,
-    required this.textfealdvisible,
+    //  required this.textfealdvisible,
     required this.searchcontroller,
   }) : super(key: key);
 
-  final bool textfealdvisible;
+  // final bool textfealdvisible;
   final TextEditingController searchcontroller;
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: textfealdvisible,
-      child: TextFormField(
-        validator: (value) {
-          return;
-        },
-        controller: searchcontroller,
-        onChanged: (value) {
-          BlocProvider.of<SearchBloc>(context).add(Search(searchtext: value));
-        },
-        style: TextStyle(color: Colors.grey.shade600),
-        decoration: InputDecoration(
-          //focusColor: Colors.blue,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
+    return BlocBuilder<SearchbuttonBloc, SearchbuttonState>(
+      builder: (context, state) {
+        return Visibility(
+          visible: state.textfieldbool,
+          child: TextFormField(
+            validator: (value) {
+              return;
+            },
+            controller: searchcontroller,
+            onChanged: (value) {
+              BlocProvider.of<SearchBloc>(context)
+                  .add(Search(searchtext: value));
+            },
+            style: TextStyle(color: Colors.grey.shade600),
+            decoration: InputDecoration(
+              //focusColor: Colors.blue,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(6.0),
+              ),
+              fillColor: Colors.grey.shade900.withOpacity(0.5),
+              filled: true,
+              prefixIcon: Icon(color: Colors.grey.shade700, Icons.search),
+              hintText: "search",
+              hintStyle: TextStyle(
+                color: Colors.grey.shade700,
+              ),
+            ),
           ),
-          fillColor: Colors.grey.shade900.withOpacity(0.5),
-          filled: true,
-          prefixIcon: Icon(color: Colors.grey.shade700, Icons.search),
-          hintText: "search",
-          hintStyle: TextStyle(
-            color: Colors.grey.shade700,
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

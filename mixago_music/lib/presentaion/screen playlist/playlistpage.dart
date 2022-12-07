@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlistsong/playlistsong_bloc.dart';
-import 'package:mixago_music/playlistfunctions/addplaylistsongs.dart';
-import 'package:mixago_music/playlistfunctions/rename%20_and_delete.dart';
+import 'package:mixago_music/presentaion/screen%20playlist/widgets/add_to_palylist_bottan_sheet.dart';
+
+import 'package:mixago_music/presentaion/screen%20playlist/widgets/rename_delete_sheet.dart';
 import 'package:mixago_music/presentaion/screen%20playlist/widgets/song_list.dart';
 import 'widgets/createplaylist.dart';
 
@@ -127,20 +128,20 @@ class _plalistpageState extends State<plalistpage> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8),
-                                      child: BlocBuilder<PlaylistsongBloc,
-                                          PlaylistsongState>(
-                                        builder: (context, state) {
-                                          return Text(
-                                            '${state.musiclist.length} Songs',
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey.shade700),
-                                          );
-                                        },
-                                      ),
-                                    )
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(left: 8),
+                                    //   child: BlocBuilder<PlaylistsongBloc,
+                                    //       PlaylistsongState>(
+                                    //     builder: (context, state) {
+                                    //       return Text(
+                                    //         '${state.musiclist.length} Songs',
+                                    //         style: TextStyle(
+                                    //             fontSize: 12,
+                                    //             color: Colors.grey.shade700),
+                                    //       );
+                                    //     },
+                                    //   ),
+                                    // )
                                   ]),
                               Padding(
                                 padding: const EdgeInsets.symmetric(

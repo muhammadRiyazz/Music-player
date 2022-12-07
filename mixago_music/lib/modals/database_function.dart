@@ -1,7 +1,6 @@
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/modals/Musics.dart';
-import 'package:mixago_music/modals/profilemodal.dart';
-import 'package:on_audio_query/on_audio_query.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
+import 'package:mixago_music/modals/profile/profilemodal.dart';
 
 Box<Musics> getsongsmodalbox() {
   return Hive.box<Musics>('musics');

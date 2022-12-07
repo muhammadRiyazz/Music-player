@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/Search/search_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
-import 'package:mixago_music/Appilcations/bloc%20file/loop%20and%20shuffle/loop_and_shuffle_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlist/playlist_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlistsong/playlistsong_bloc.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/profile/profile_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/recent/recent_bloc.dart';
-import 'package:mixago_music/modals/profilemodal.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
+import 'package:mixago_music/modals/profile/profilemodal.dart';
 import 'package:mixago_music/presentaion/screen%20splash/splash.dart';
 import 'Appilcations/bloc file/mostplay/mostplay_bloc.dart';
-import 'modals/Musics.dart';
+import 'Appilcations/bloc file/searchbutton/searchbutton_bloc.dart';
 
 //bloc
 
@@ -58,7 +59,10 @@ class _MixagoState extends State<Mixago> {
           create: (context) => PlaylistsongBloc(),
         ),
         BlocProvider(
-          create: (context) => LoopAndShuffleBloc(),
+          create: (context) => ProfileBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchbuttonBloc(),
         ),
       ],
       child: MaterialApp(

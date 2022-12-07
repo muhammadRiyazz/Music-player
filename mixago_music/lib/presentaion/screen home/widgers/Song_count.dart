@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 
 class SongCount extends StatelessWidget {
   const SongCount({

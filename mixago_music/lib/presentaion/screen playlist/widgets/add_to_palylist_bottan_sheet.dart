@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlistsong/playlistsong_bloc.dart';
-import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 addsongplaylist({required BuildContext ctxt, required String keys}) {

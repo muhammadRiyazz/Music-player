@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 
 part 'recent_event.dart';
 part 'recent_state.dart';

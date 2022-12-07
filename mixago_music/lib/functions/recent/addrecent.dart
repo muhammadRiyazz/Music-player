@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/recent/recent_bloc.dart';
-import 'package:mixago_music/library%20add%20functions/addmostplay.dart';
-import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/functions/most%20play/addmostplay.dart';
 import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 
 addrecent({required String id, required BuildContext context}) async {
   log('function call');

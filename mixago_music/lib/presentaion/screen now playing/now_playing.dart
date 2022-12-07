@@ -6,9 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/favourites/favourites_bloc.dart';
-import 'package:mixago_music/Appilcations/bloc%20file/loop%20and%20shuffle/loop_and_shuffle_bloc.dart';
-import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/screen%20now%20playing/layrics_sheet/layrics.dart';
 import 'package:mixago_music/presentaion/screen%20now%20playing/widgets/progresbar.dart';
 import 'package:mixago_music/presentaion/screen%20now%20playing/widgets/singername.dart';
@@ -50,25 +49,26 @@ class NowPlaying extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          BlocBuilder<LoopAndShuffleBloc, LoopAndShuffleState>(
-            builder: (context, state) {
+          PlayerBuilder.loopMode(
+            player: mymusicplayer,
+            builder: (context, loopMode) {
               return IconButton(
                   onPressed: () {
-                    state.loopbool == false
-                        ? BlocProvider.of<LoopAndShuffleBloc>(context).add(
-                            Loop(
-                              loopbool: true,
-                              mymusicplayer: mymusicplayer,
-                            ),
-                          )
-                        : BlocProvider.of<LoopAndShuffleBloc>(context).add(
-                            Loop(
-                              loopbool: false,
-                              mymusicplayer: mymusicplayer,
-                            ),
-                          );
+                    if (loopMode == LoopMode.playlist) {
+                      audioPlayer.setLoopMode(LoopMode.single);
+                    } else {
+                      audioPlayer.setLoopMode(LoopMode.playlist);
+                    }
                   },
-                  icon: state.loop);
+                  icon: loopMode == LoopMode.playlist
+                      ? Icon(
+                          Icons.repeat,
+                          color: Colors.red,
+                        )
+                      : Icon(
+                          Icons.repeat,
+                          color: Colors.grey,
+                        ));
             },
           ),
           Row(
@@ -110,27 +110,23 @@ class NowPlaying extends StatelessWidget {
                   )),
             ],
           ),
-          BlocBuilder<LoopAndShuffleBloc, LoopAndShuffleState>(
-            builder: (context, state) {
-              return IconButton(
-                  onPressed: () {
-                    state.shufflebool == false
-                        ? BlocProvider.of<LoopAndShuffleBloc>(context).add(
-                            Shuffle(
-                              shufflebool: true,
-                              mymusicplayer: mymusicplayer,
-                            ),
+          PlayerBuilder.realtimePlayingInfos(
+              player: mymusicplayer,
+              builder: (context, realtimeinfo) {
+                return IconButton(
+                    onPressed: () {
+                      mymusicplayer.toggleShuffle();
+                    },
+                    icon: mymusicplayer.isShuffling.value
+                        ? const Icon(
+                            Icons.shuffle,
+                            color: Colors.grey,
                           )
-                        : BlocProvider.of<LoopAndShuffleBloc>(context).add(
-                            Shuffle(
-                              shufflebool: false,
-                              mymusicplayer: mymusicplayer,
-                            ),
-                          );
-                  },
-                  icon: state.shuffle);
-            },
-          ),
+                        : const Icon(
+                            Icons.shuffle,
+                            color: Colors.red,
+                          ));
+              })
         ],
       ),
     );

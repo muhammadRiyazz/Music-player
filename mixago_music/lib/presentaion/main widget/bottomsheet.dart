@@ -2,10 +2,10 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/modals/Musics.dart';
 
 import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/screen%20playlist/playlistpage.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';

@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mixago_music/Appilcations/bloc%20file/playlistsong/playlistsong_bloc.dart';
-import 'package:mixago_music/library%20add%20functions/addrecent.dart';
-import 'package:mixago_music/playlistfunctions/playlistbottumsheet.dart';
+import 'package:mixago_music/functions/recent/addrecent.dart';
 import 'package:mixago_music/presentaion/main%20widget/miniplayer/miniplayer.dart';
+import 'package:mixago_music/presentaion/screen%20playlist/widgets/bottan_sheet.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class listview extends StatelessWidget {

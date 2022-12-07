@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mixago_music/library%20add%20functions/addrecent.dart';
-import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/functions/recent/addrecent.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/main%20widget/miniplayer/miniplayer.dart';
 import 'package:mixago_music/presentaion/main%20widget/bottomsheet.dart';
 import 'package:on_audio_query/on_audio_query.dart';

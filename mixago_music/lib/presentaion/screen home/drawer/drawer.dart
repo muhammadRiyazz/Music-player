@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mixago_music/modals/database_function.dart';
-import 'package:mixago_music/modals/profilemodal.dart';
+import 'package:mixago_music/modals/profile/profilemodal.dart';
 import 'package:mixago_music/presentaion/screen%20profile/pfofile.dart';
 import 'package:mixago_music/presentaion/screen%20settings/about%20alert/about.dart';
 import 'package:mixago_music/presentaion/screen%20settings/settings.dart';

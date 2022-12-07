@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/profile/profile_bloc.dart';
 import 'package:mixago_music/modals/database_function.dart';
-import 'package:mixago_music/modals/profilemodal.dart';
-import 'package:mixago_music/profilefunctions/editprofile.dart';
+import 'package:mixago_music/modals/profile/profilemodal.dart';
+import 'package:mixago_music/presentaion/screen%20profile/page_edit_profile/edit.dart';
 
 class profilescreen extends StatelessWidget {
   profilescreen({super.key});

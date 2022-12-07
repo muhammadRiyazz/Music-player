@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/Play_list_container.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/librarylist.dart';
+
+import '../../../Appilcations/bloc file/searchbutton/searchbutton_bloc.dart';
 
 class VisibilityPart extends StatelessWidget {
   const VisibilityPart({
     Key? key,
-    required this.libraryvsible,
+    //  required this.libraryvsible,
     required this.size,
     required this.favouriteSongsList,
     required this.mostlayedsonglist,
@@ -15,7 +18,7 @@ class VisibilityPart extends StatelessWidget {
     required this.alllibrary,
   }) : super(key: key);
 
-  final bool libraryvsible;
+  // final bool libraryvsible;
   final Size size;
   final List<Musics> favouriteSongsList;
   final List<Musics> mostlayedsonglist;
@@ -24,31 +27,35 @@ class VisibilityPart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: libraryvsible,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(bottom: 5),
-            child: Text(
-              'LIBRARY',
-              style: TextStyle(
-                  color: (Colors.grey.shade400),
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold),
-            ),
+    return BlocBuilder<SearchbuttonBloc, SearchbuttonState>(
+      builder: (context, state) {
+        return Visibility(
+          visible: state.librarybool,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(bottom: 5),
+                child: Text(
+                  'LIBRARY',
+                  style: TextStyle(
+                      color: (Colors.grey.shade400),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              LibraryList(
+                size: size,
+                favouriteSongsList: favouriteSongsList,
+                mostlayedsonglist: mostlayedsonglist,
+                recentsonglist: recentsonglist,
+                alllibrary: alllibrary,
+              ),
+              PlayListContainer(size: size),
+            ],
           ),
-          LibraryList(
-            size: size,
-            favouriteSongsList: favouriteSongsList,
-            mostlayedsonglist: mostlayedsonglist,
-            recentsonglist: recentsonglist,
-            alllibrary: alllibrary,
-          ),
-          PlayListContainer(size: size),
-        ],
-      ),
+        );
+      },
     );
   }
 }

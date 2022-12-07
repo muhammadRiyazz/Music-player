@@ -1,42 +1,40 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:glassmorphism_ui/glassmorphism_ui.dart';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:mixago_music/modals/profilemodal.dart';
+import 'package:mixago_music/Appilcations/bloc%20file/profile/profile_bloc.dart';
+import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/profile/profilemodal.dart';
 
-import '../modals/database_function.dart';
-
-class profileeditpage extends StatefulWidget {
-  const profileeditpage({super.key, required this.myname, required this.myimg});
+class profileeditpage extends StatelessWidget {
+  profileeditpage({super.key, required this.myname, required this.myimg});
 
   final String myname;
   final String myimg;
 
-  @override
-  State<profileeditpage> createState() => _profileeditpageState();
-}
-
-class _profileeditpageState extends State<profileeditpage> {
   TextEditingController namecontroller = TextEditingController();
+
   String? myimage;
 
-  @override
-  void initState() {
-    namecontroller.text = widget.myname;
-    myimage = widget.myimg;
-
-    super.initState();
+  void newinitState() {
+    namecontroller.text = myname;
+    myimage = myimg;
   }
 
   @override
   Widget build(BuildContext context) {
+    newinitState();
+    BlocProvider.of<ProfileBloc>(context).add(Initialphoto(Photo: myimage!));
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.grey),
+        iconTheme: const IconThemeData(color: Colors.grey),
         backgroundColor: Colors.black,
       ),
       body: Container(
@@ -63,17 +61,22 @@ class _profileeditpageState extends State<profileeditpage> {
                 height: size.height * 0.29,
                 width: size.width * 0.64,
 
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: myimage ==
-                          'asset/img/blank-profile-picture-973460_1280.webp'
-                      ? Image.asset(fit: BoxFit.cover, myimage.toString())
-                      : Image.file(fit: BoxFit.cover, File(myimage.toString())),
+                child: BlocBuilder<ProfileBloc, ProfileState>(
+                  builder: (context, state) {
+                    log(state.photo);
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: myimage ==
+                              'asset/img/blank-profile-picture-973460_1280.webp'
+                          ? Image.asset(fit: BoxFit.cover, myimage.toString())
+                          : Image.file(fit: BoxFit.cover, File(state.photo)),
+                    );
+                  },
                 ),
               ),
               TextButton(
                 onPressed: () async {
-                  myimagepicker();
+                  myimagepicker(cnxt: context);
                 },
                 child: const Text(
                   'Change Photo',
@@ -114,10 +117,10 @@ class _profileeditpageState extends State<profileeditpage> {
     );
   }
 
-  myimagepicker() {
+  myimagepicker({required BuildContext cnxt}) {
     return showModalBottomSheet(
       backgroundColor: Colors.black12.withOpacity(0),
-      context: context,
+      context: cnxt,
       builder: (context) {
         return Container(
           color: Colors.black.withOpacity(0.0),
@@ -131,7 +134,7 @@ class _profileeditpageState extends State<profileeditpage> {
                 child: Column(children: [
                   GestureDetector(
                     onTap: (() {
-                      addimage(source: ImageSource.camera);
+                      addimage(source: ImageSource.camera, ctxt: cnxt);
                       Navigator.pop(context);
                     }),
                     child: ListTile(
@@ -143,7 +146,7 @@ class _profileeditpageState extends State<profileeditpage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      addimage(source: ImageSource.gallery);
+                      addimage(source: ImageSource.gallery, ctxt: cnxt);
                       Navigator.pop(context);
                     },
                     child: ListTile(
@@ -162,33 +165,27 @@ class _profileeditpageState extends State<profileeditpage> {
     );
   }
 
-  addimage({required ImageSource source}) async {
+  addimage({required ImageSource source, required BuildContext ctxt}) async {
+    log('add img function call aa');
     final file = await ImagePicker().pickImage(source: source);
     if (file == null) {
       return null;
     }
-    setState(() {
-      myimage = file.path;
-    });
-
-    log(myimage.toString());
+    myimage = file.path;
+    BlocProvider.of<ProfileBloc>(ctxt).add(Changephoto(img: file.path));
   }
 
   save() {
-    log('save');
     final photo = myimage;
     String name = namecontroller.text.trim();
     if (photo == null || name == null) {
       return;
     }
     final profiledatabase = UserProfile(
-        userimage: photo.toString(),
-        username: name.isEmpty ? widget.myname : name);
+        userimage: photo.toString(), username: name.isEmpty ? myname : name);
 
     final userdata = getprofilebox();
 
     userdata.put('user', profiledatabase);
-    log('save');
-    log(userdata.length.toString());
   }
 }

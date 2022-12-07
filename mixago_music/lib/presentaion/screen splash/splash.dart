@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:mixago_music/modals/Musics.dart';
 import 'package:mixago_music/modals/database_function.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/screen%20home/screen_home.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';

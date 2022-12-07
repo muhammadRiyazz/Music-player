@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mixago_music/modals/Musics.dart';
+import 'package:mixago_music/modals/musics/Musics.dart';
 import 'package:mixago_music/presentaion/screen%20favourites/favourite.dart';
 import 'package:mixago_music/presentaion/screen%20home/widgers/library.dart';
 import 'package:mixago_music/presentaion/screen%20most%20played/mostplayed.dart';

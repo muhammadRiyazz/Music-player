@@ -40,7 +40,6 @@ class _SettingsState extends State<Settings> {
           style: TextStyle(color: Colors.grey.shade300),
         ),
       ),
-      //backgroundColor: Colors.black,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
